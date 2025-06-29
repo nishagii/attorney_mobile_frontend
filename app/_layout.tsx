@@ -1,23 +1,20 @@
 import { Stack } from "expo-router";
-import './globals.css';
+import "./globals.css";
 
 // this page is for groups
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="(tabs)"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="movie/[id]"
-        options={{
-          headerShown: false,
-        }}
-      />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="welcome" />
+      <Stack.Screen name="lawyer/(tabs)" />
+      <Stack.Screen name="auth" />
+      <Stack.Screen name="lawyer/(screens)" />
+      <Stack.Screen name="case/[id]" />
     </Stack>
   );
 }
