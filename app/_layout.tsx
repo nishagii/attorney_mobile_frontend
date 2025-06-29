@@ -5,37 +5,16 @@ import "./globals.css";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      {/* Auth screens */}
-      <Stack.Screen
-        name="auth"
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      {/* Main app tabs */}
-      <Stack.Screen
-        name="(tabs)"
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      {/* Other screens */}
-      <Stack.Screen
-        name="movie/[id]"
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="case/[id]"
-        options={{
-          headerShown: false,
-        }}
-      />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="welcome" />
+      <Stack.Screen name="lawyer/(tabs)" />
+      <Stack.Screen name="auth" />
+      <Stack.Screen name="lawyer/(screens)" />
+      <Stack.Screen name="case/[id]" />
     </Stack>
   );
 }

@@ -29,7 +29,7 @@ export default function LoginScreen() {
       // await authService.login(email, password);
 
       // Navigate to the main app
-      router.replace("/(tabs)/dashboard");
+      router.replace("/lawyer/(tabs)/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed. Please check your credentials.");
