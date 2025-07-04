@@ -40,7 +40,21 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: [
+          "Montserrat_400Regular",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        thin: ["Montserrat_100Thin"],
+        extralight: ["Montserrat_200ExtraLight"],
+        light: ["Montserrat_300Light"],
+        regular: ["Montserrat_400Regular"],
+        medium: ["Montserrat_500Medium"],
+        semibold: ["Montserrat_600SemiBold"],
+        bold: ["Montserrat_700Bold"],
+        extrabold: ["Montserrat_800ExtraBold"],
+        black: ["Montserrat_900Black"],
       },
       boxShadow: {
         card: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
