@@ -27,7 +27,7 @@ export default function Dashboard() {
           justifyContent: "space-between",
           alignItems: "center",
           paddingHorizontal: 20,
-          paddingTop: 48,
+          paddingTop: 40,
           paddingBottom: 16,
           backgroundColor: "#111827",
         }}

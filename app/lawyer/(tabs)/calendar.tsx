@@ -10,7 +10,6 @@ import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
-import { LinearGradient } from "expo-linear-gradient";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
@@ -102,52 +101,152 @@ const CalendarScreen = () => {
   };
 
   return (
-    <LinearGradient
-      colors={["#fff3e0", "#f9fafb", "#f9fafb"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
 
-        {/* Header */}
+      {/* Header */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+          paddingVertical: 16,
+          backgroundColor: "#ffffff",
+          borderBottomWidth: 1,
+          borderBottomColor: "#e5e7eb",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#111827",
+            fontFamily: fonts.semiBold,
+          }}
+        >
+          Case Calendar
+        </Text>
+        <TouchableOpacity>
+          <Ionicons name="notifications-outline" size={24} color="#111827" />
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView style={{ flex: 1 }}>
+        {/* Selected Date Section */}
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingHorizontal: 20,
-            paddingVertical: 16,
             backgroundColor: "#ffffff",
-            borderBottomWidth: 1,
-            borderBottomColor: "#e5e7eb",
+            marginHorizontal: 20,
+            marginTop: 20,
+            borderRadius: 16,
+            padding: 24,
           }}
         >
           <Text
             style={{
-              fontSize: 20,
-              fontWeight: "bold",
+              fontSize: 18,
+              fontWeight: "600",
               color: "#111827",
+              marginBottom: 16,
               fontFamily: fonts.semiBold,
             }}
           >
-            Calendar
+            {formatSelectedDate(selectedDate)}
           </Text>
-          <TouchableOpacity>
-            <Ionicons name="notifications-outline" size={24} color="#111827" />
+
+          {/* Add Hearing Button */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#111827",
+              borderRadius: 12,
+              paddingVertical: 16,
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "#ffffff",
+                fontSize: 16,
+                fontWeight: "500",
+                fontFamily: fonts.medium,
+              }}
+            >
+              + Add Hearing
+            </Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView style={{ flex: 1 }}>
-          {/* Selected Date Section */}
+        {/* Calendar Section */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            marginTop: 16,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#e5e7eb",
+            overflow: "hidden",
+          }}
+        >
+          <Calendar
+            current={currentMonth}
+            onDayPress={(day) => {
+              setSelectedDate(day.dateString);
+            }}
+            onMonthChange={(month) => {
+              setCurrentMonth(month.dateString.substring(0, 7));
+            }}
+            markedDates={getMarkedDates()}
+            theme={{
+              backgroundColor: "#ffffff",
+              calendarBackground: "#ffffff",
+              textSectionTitleColor: "#6b7280",
+              selectedDayBackgroundColor: "#FFA500",
+              selectedDayTextColor: "#ffffff",
+              todayTextColor: "#FFA500",
+              dayTextColor: "#111827",
+              textDisabledColor: "#d1d5db",
+              dotColor: "#FFA500",
+              selectedDotColor: "#ffffff",
+              arrowColor: "#6b7280",
+              disabledArrowColor: "#d1d5db",
+              monthTextColor: "#111827",
+              indicatorColor: "#FFA500",
+              textDayFontFamily: fonts.medium,
+              textMonthFontFamily: fonts.semiBold,
+              textDayHeaderFontFamily: fonts.medium,
+              textDayFontWeight: "500",
+              textMonthFontWeight: "600",
+              textDayHeaderFontWeight: "500",
+              textDayFontSize: 16,
+              textMonthFontSize: 18,
+              textDayHeaderFontSize: 14,
+            }}
+            style={{
+              paddingBottom: 16,
+            }}
+          />
+        </View>
+
+        {/* Time Slots Section */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            marginTop: 16,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#e5e7eb",
+          }}
+        >
           <View
             style={{
-              backgroundColor: "#ffffff",
-              marginHorizontal: 20,
-              marginTop: 20,
-              borderRadius: 16,
-              padding: 24,
+              paddingHorizontal: 20,
+              paddingTop: 20,
+              paddingBottom: 12,
+              borderBottomWidth: 1,
+              borderBottomColor: "#f3f4f6",
             }}
           >
             <Text
@@ -155,213 +254,105 @@ const CalendarScreen = () => {
                 fontSize: 18,
                 fontWeight: "600",
                 color: "#111827",
-                marginBottom: 16,
                 fontFamily: fonts.semiBold,
               }}
             >
-              {formatSelectedDate(selectedDate)}
+              Time Slots for {formatSelectedDate(selectedDate).split(" of ")[0]}
             </Text>
-
-            {/* Add Hearing Button */}
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#111827",
-                borderRadius: 12,
-                paddingVertical: 16,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  color: "#ffffff",
-                  fontSize: 16,
-                  fontWeight: "500",
-                  fontFamily: fonts.medium,
-                }}
-              >
-                + Add Hearing
-              </Text>
-            </TouchableOpacity>
           </View>
 
-          {/* Calendar Section */}
-          <View
-            style={{
-              backgroundColor: "#ffffff",
-              marginHorizontal: 20,
-              marginTop: 16,
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: "#e5e7eb",
-              overflow: "hidden",
-            }}
-          >
-            <Calendar
-              current={currentMonth}
-              onDayPress={(day) => {
-                setSelectedDate(day.dateString);
-              }}
-              onMonthChange={(month) => {
-                setCurrentMonth(month.dateString.substring(0, 7));
-              }}
-              markedDates={getMarkedDates()}
-              theme={{
-                backgroundColor: "#ffffff",
-                calendarBackground: "#ffffff",
-                textSectionTitleColor: "#6b7280",
-                selectedDayBackgroundColor: "#FFA500",
-                selectedDayTextColor: "#ffffff",
-                todayTextColor: "#FFA500",
-                dayTextColor: "#111827",
-                textDisabledColor: "#d1d5db",
-                dotColor: "#FFA500",
-                selectedDotColor: "#ffffff",
-                arrowColor: "#6b7280",
-                disabledArrowColor: "#d1d5db",
-                monthTextColor: "#111827",
-                indicatorColor: "#FFA500",
-                textDayFontFamily: fonts.medium,
-                textMonthFontFamily: fonts.semiBold,
-                textDayHeaderFontFamily: fonts.medium,
-                textDayFontWeight: "500",
-                textMonthFontWeight: "600",
-                textDayHeaderFontWeight: "500",
-                textDayFontSize: 16,
-                textMonthFontSize: 18,
-                textDayHeaderFontSize: 14,
-              }}
-              style={{
-                paddingBottom: 16,
-              }}
-            />
-          </View>
-
-          {/* Time Slots Section */}
-          <View
-            style={{
-              backgroundColor: "#ffffff",
-              marginHorizontal: 20,
-              marginTop: 16,
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: "#e5e7eb",
-            }}
-          >
-            <View
-              style={{
-                paddingHorizontal: 20,
-                paddingTop: 20,
-                paddingBottom: 12,
-                borderBottomWidth: 1,
-                borderBottomColor: "#f3f4f6",
-              }}
-            >
-              <Text
+          {/* Time Slots List */}
+          <View style={{ padding: 20 }}>
+            {timeSlots.map((slot, index) => (
+              <View
+                key={index}
                 style={{
-                  fontSize: 18,
-                  fontWeight: "600",
-                  color: "#111827",
-                  fontFamily: fonts.semiBold,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 16,
+                  borderBottomWidth: index < timeSlots.length - 1 ? 1 : 0,
+                  borderBottomColor: "#f3f4f6",
                 }}
               >
-                Time Slots for{" "}
-                {formatSelectedDate(selectedDate).split(" of ")[0]}
-              </Text>
-            </View>
-
-            {/* Time Slots List */}
-            <View style={{ padding: 20 }}>
-              {timeSlots.map((slot, index) => (
                 <View
-                  key={index}
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingVertical: 16,
-                    borderBottomWidth: index < timeSlots.length - 1 ? 1 : 0,
-                    borderBottomColor: "#f3f4f6",
+                    width: 12,
+                    height: 12,
+                    borderRadius: 6,
+                    backgroundColor:
+                      slot.status === "available" ? "#10b981" : "#ef4444",
+                    marginRight: 16,
                   }}
-                >
-                  <View
-                    style={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: 6,
-                      backgroundColor:
-                        slot.status === "available" ? "#10b981" : "#ef4444",
-                      marginRight: 16,
-                    }}
-                  />
-                  <View style={{ flex: 1 }}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "500",
-                        color: "#111827",
-                        marginBottom: 4,
-                        fontFamily: fonts.medium,
-                      }}
-                    >
-                      {slot.time}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        color:
-                          slot.status === "available" ? "#10b981" : "#ef4444",
-                        fontFamily: fonts.regular,
-                      }}
-                    >
-                      {slot.status === "available" ? "Available" : slot.details}
-                    </Text>
-                  </View>
-                  {slot.status === "available" && (
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: "#111827",
-                        borderRadius: 8,
-                        paddingHorizontal: 16,
-                        paddingVertical: 8,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: "#ffffff",
-                          fontSize: 14,
-                          fontWeight: "500",
-                          fontFamily: fonts.medium,
-                        }}
-                      >
-                        Book
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              ))}
-
-              {/* Empty state when no slots */}
-              {timeSlots.length === 0 && (
-                <View style={{ alignItems: "center", paddingVertical: 32 }}>
+                />
+                <View style={{ flex: 1 }}>
                   <Text
                     style={{
                       fontSize: 16,
-                      color: "#6b7280",
-                      textAlign: "center",
+                      fontWeight: "500",
+                      color: "#111827",
+                      marginBottom: 4,
+                      fontFamily: fonts.medium,
+                    }}
+                  >
+                    {slot.time}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color:
+                        slot.status === "available" ? "#10b981" : "#ef4444",
                       fontFamily: fonts.regular,
                     }}
                   >
-                    No time slots available for this date
+                    {slot.status === "available" ? "Available" : slot.details}
                   </Text>
                 </View>
-              )}
-            </View>
-          </View>
+                {slot.status === "available" && (
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#111827",
+                      borderRadius: 8,
+                      paddingHorizontal: 16,
+                      paddingVertical: 8,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#ffffff",
+                        fontSize: 14,
+                        fontWeight: "500",
+                        fontFamily: fonts.medium,
+                      }}
+                    >
+                      Book
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            ))}
 
-          {/* Bottom spacing */}
-          <View style={{ height: 32 }} />
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+            {/* Empty state when no slots */}
+            {timeSlots.length === 0 && (
+              <View style={{ alignItems: "center", paddingVertical: 32 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "#6b7280",
+                    textAlign: "center",
+                    fontFamily: fonts.regular,
+                  }}
+                >
+                  No time slots available for this date
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+
+        {/* Bottom spacing */}
+        <View style={{ height: 32 }} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

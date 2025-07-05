@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Image, Text } from "react-native";
+import { Image, Text, View } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -54,12 +53,7 @@ export default function WelcomeScreen() {
   });
 
   return (
-    <LinearGradient
-      colors={["#fff3e0", "#ffffff", "#ffffff"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      className="flex-1 justify-center items-center"
-    >
+    <View className="flex-1 justify-center items-center bg-white">
       <StatusBar style="dark" />
 
       <Animated.View
@@ -78,6 +72,6 @@ export default function WelcomeScreen() {
           Legal expertise at your fingertips
         </Text>
       </Animated.View>
-    </LinearGradient>
+    </View>
   );
 }

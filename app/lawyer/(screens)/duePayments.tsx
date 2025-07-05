@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 
 type PaymentStatus = "Overdue" | "Due Soon" | "Pending";
 type FilterType = "All" | "Overdue" | "This Week";
@@ -80,12 +79,7 @@ export default function DuePayments() {
   const dueSoonCount = payments.filter((p) => p.status === "Due Soon").length;
 
   return (
-    <LinearGradient
-      colors={["#fff3e0", "#f9fafb", "#f9fafb"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      style={{ flex: 1 }}
-    >
+    <View style={{ flex: 1, backgroundColor: "#f9fafb" }}>
       <View className="flex-1">
         {/* Header with back button */}
         <View className="flex-row items-center px-4 pt-14 pb-4 border-b border-gray-200">
@@ -100,12 +94,7 @@ export default function DuePayments() {
         <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
           {/* Summary Card - Updated with gradient background and more prominent styling */}
           <View className="mx-4 my-4">
-            <LinearGradient
-              colors={["#4B5563", "#1F2937"]} // These are tailwind's gray-600 and gray-900
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              className="rounded-3xl p-6"
-            >
+            <View className="rounded-3xl p-6 bg-gray-600">
               <Text className="text-white text-lg text-center mb-2">
                 Total Outstanding
               </Text>
@@ -115,7 +104,7 @@ export default function DuePayments() {
               <Text className="text-white text-center mt-4 opacity-80">
                 {overdueCount} payments overdue • {dueSoonCount} due soon
               </Text>
-            </LinearGradient>
+            </View>
           </View>
 
           {/* Filter Tabs */}
@@ -237,6 +226,6 @@ export default function DuePayments() {
           </View>
         </ScrollView>
       </View>
-    </LinearGradient>
+    </View>
   );
 }
