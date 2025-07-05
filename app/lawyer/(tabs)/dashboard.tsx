@@ -9,6 +9,7 @@ import React, { useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import { fonts } from "@/constants/fonts";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -27,7 +28,7 @@ export default function Dashboard() {
           justifyContent: "space-between",
           alignItems: "center",
           paddingHorizontal: 20,
-          paddingTop: 40,
+          paddingTop: 60,
           paddingBottom: 16,
           backgroundColor: "#111827",
         }}
@@ -67,20 +68,27 @@ export default function Dashboard() {
               fontSize: 24,
               fontWeight: "bold",
               color: "#fff",
-              marginBottom: 8,
+              marginBottom: 4,
+              fontFamily: fonts.semiBold,
             }}
           >
             Hello Thusitha, Welcome!
           </Text>
           <Text
             style={{
-              fontSize: 16,
-              color: "#5E788F",
-              lineHeight: 24,
+              fontSize: 14,
+              color: "#FF8800",
+              marginBottom: 12,
+              fontWeight: "500",
+              fontFamily: fonts.medium,
             }}
           >
-            Manage your cases, track payments, and stay organized with your
-            legal practice dashboard.
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </Text>
         </View>
 
@@ -88,7 +96,7 @@ export default function Dashboard() {
         <LinearGradient
           colors={["#fff3e0", "#ffffff", "#ffffff"]}
           start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 1.1 }}
           style={{
             flex: 1,
             marginTop: 40,
@@ -389,6 +397,7 @@ export default function Dashboard() {
                             fontSize: 14,
                             fontWeight: "bold",
                             color: "#323D68",
+                            fontFamily: fonts.semiBold,
                           }}
                         >
                           $2,500
@@ -421,7 +430,13 @@ export default function Dashboard() {
                             color="white"
                           />
                         </View>
-                        <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                        <Text
+                          style={{
+                            color: "#5E788F",
+                            fontSize: 14,
+                            fontFamily: fonts.regular,
+                          }}
+                        >
                           Due Payments
                         </Text>
                         <Text
@@ -430,6 +445,7 @@ export default function Dashboard() {
                             fontWeight: "bold",
                             marginTop: 4,
                             color: "#323D68",
+                            fontFamily: fonts.semiBold,
                           }}
                         >
                           $2,500
@@ -489,6 +505,7 @@ export default function Dashboard() {
                           fontSize: 14,
                           fontWeight: "bold",
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         12 Items
@@ -517,7 +534,13 @@ export default function Dashboard() {
                       >
                         <Ionicons name="time-outline" size={20} color="white" />
                       </View>
-                      <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                      <Text
+                        style={{
+                          color: "#5E788F",
+                          fontSize: 14,
+                          fontFamily: fonts.regular,
+                        }}
+                      >
                         Timeline
                       </Text>
                       <Text
@@ -526,6 +549,7 @@ export default function Dashboard() {
                           fontWeight: "bold",
                           marginTop: 4,
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         12 Items
@@ -605,6 +629,7 @@ export default function Dashboard() {
                           fontSize: 14,
                           fontWeight: "bold",
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         $8,750
@@ -637,7 +662,13 @@ export default function Dashboard() {
                           color="white"
                         />
                       </View>
-                      <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                      <Text
+                        style={{
+                          color: "#5E788F",
+                          fontSize: 14,
+                          fontFamily: fonts.regular,
+                        }}
+                      >
                         Incomes
                       </Text>
                       <Text
@@ -646,6 +677,7 @@ export default function Dashboard() {
                           fontWeight: "bold",
                           marginTop: 4,
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         $8,750
@@ -708,6 +740,7 @@ export default function Dashboard() {
                           fontSize: 14,
                           fontWeight: "bold",
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         5 Activities
@@ -740,7 +773,13 @@ export default function Dashboard() {
                           color="white"
                         />
                       </View>
-                      <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                      <Text
+                        style={{
+                          color: "#5E788F",
+                          fontSize: 14,
+                          fontFamily: fonts.regular,
+                        }}
+                      >
                         Day Summary
                       </Text>
                       <Text
@@ -749,6 +788,7 @@ export default function Dashboard() {
                           fontWeight: "bold",
                           marginTop: 4,
                           color: "#323D68",
+                          fontFamily: fonts.semiBold,
                         }}
                       >
                         5 Activities
@@ -817,6 +857,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Due Payments
@@ -853,6 +894,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Send Money
@@ -893,6 +935,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Transfer
@@ -941,6 +984,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Mobile Cases
@@ -981,6 +1025,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Bill Payment
@@ -1017,6 +1062,7 @@ export default function Dashboard() {
                       fontSize: 12,
                       fontWeight: "500",
                       textAlign: "center",
+                      fontFamily: fonts.medium,
                     }}
                   >
                     Analytics
@@ -1058,17 +1104,29 @@ export default function Dashboard() {
                         fontSize: 16,
                         fontWeight: "600",
                         color: "#323D68",
+                        fontFamily: fonts.semiBold,
                       }}
                     >
                       Accounts
                     </Text>
-                    <Text style={{ fontSize: 13, color: "#5E788F" }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        color: "#5E788F",
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       Total Account Balance
                     </Text>
                   </View>
                 </View>
                 <Text
-                  style={{ fontSize: 18, fontWeight: "bold", color: "#323D68" }}
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#323D68",
+                    fontFamily: fonts.semiBold,
+                  }}
                 >
                   $8,750.24
                 </Text>
@@ -1104,17 +1162,29 @@ export default function Dashboard() {
                         fontSize: 16,
                         fontWeight: "600",
                         color: "#323D68",
+                        fontFamily: fonts.semiBold,
                       }}
                     >
                       Cases
                     </Text>
-                    <Text style={{ fontSize: 13, color: "#5E788F" }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        color: "#5E788F",
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       Total Case Balance
                     </Text>
                   </View>
                 </View>
                 <Text
-                  style={{ fontSize: 18, fontWeight: "bold", color: "#323D68" }}
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#323D68",
+                    fontFamily: fonts.semiBold,
+                  }}
                 >
                   $2,500.00
                 </Text>
@@ -1129,6 +1199,7 @@ export default function Dashboard() {
                   fontWeight: "bold",
                   marginBottom: 12,
                   color: "#323D68",
+                  fontFamily: fonts.semiBold,
                 }}
               >
                 Hearings to attend today
@@ -1152,10 +1223,22 @@ export default function Dashboard() {
                   }}
                 >
                   <View>
-                    <Text style={{ fontWeight: "600", color: "#323D68" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        color: "#323D68",
+                        fontFamily: fonts.semiBold,
+                      }}
+                    >
                       Case # 103464 - H.M.S.J Dewasiritha
                     </Text>
-                    <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                    <Text
+                      style={{
+                        color: "#5E788F",
+                        fontSize: 14,
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       High Court
                     </Text>
                   </View>
@@ -1172,6 +1255,7 @@ export default function Dashboard() {
                         color: "#1976D2",
                         fontSize: 12,
                         fontWeight: "500",
+                        fontFamily: fonts.medium,
                       }}
                     >
                       In-progress
@@ -1198,10 +1282,22 @@ export default function Dashboard() {
                   }}
                 >
                   <View>
-                    <Text style={{ fontWeight: "600", color: "#323D68" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        color: "#323D68",
+                        fontFamily: fonts.semiBold,
+                      }}
+                    >
                       Case # 103465 - Sahan Perera
                     </Text>
-                    <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                    <Text
+                      style={{
+                        color: "#5E788F",
+                        fontSize: 14,
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       Magistrate Court
                     </Text>
                   </View>
@@ -1218,6 +1314,7 @@ export default function Dashboard() {
                         color: "#7B1FA2",
                         fontSize: 12,
                         fontWeight: "500",
+                        fontFamily: fonts.medium,
                       }}
                     >
                       Upfront
@@ -1244,10 +1341,22 @@ export default function Dashboard() {
                   }}
                 >
                   <View>
-                    <Text style={{ fontWeight: "600", color: "#323D68" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        color: "#323D68",
+                        fontFamily: fonts.semiBold,
+                      }}
+                    >
                       Case # 103465 - Kamala Silva
                     </Text>
-                    <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                    <Text
+                      style={{
+                        color: "#5E788F",
+                        fontSize: 14,
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       District Court
                     </Text>
                   </View>
@@ -1264,6 +1373,7 @@ export default function Dashboard() {
                         color: "#FF8800",
                         fontSize: 12,
                         fontWeight: "500",
+                        fontFamily: fonts.medium,
                       }}
                     >
                       Delayed
@@ -1281,6 +1391,7 @@ export default function Dashboard() {
                   fontWeight: "bold",
                   marginBottom: 12,
                   color: "#323D68",
+                  fontFamily: fonts.semiBold,
                 }}
               >
                 Monthly Income
@@ -1296,7 +1407,12 @@ export default function Dashboard() {
                 }}
               >
                 <Text
-                  style={{ fontSize: 28, fontWeight: "bold", color: "#323D68" }}
+                  style={{
+                    fontSize: 28,
+                    fontWeight: "bold",
+                    color: "#323D68",
+                    fontFamily: fonts.semiBold,
+                  }}
                 >
                   $7,500
                 </Text>
@@ -1311,6 +1427,7 @@ export default function Dashboard() {
                   fontWeight: "bold",
                   marginBottom: 12,
                   color: "#323D68",
+                  fontFamily: fonts.semiBold,
                 }}
               >
                 Meeting Requests
@@ -1334,10 +1451,22 @@ export default function Dashboard() {
                   }}
                 >
                   <View>
-                    <Text style={{ fontWeight: "600", color: "#323D68" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        color: "#323D68",
+                        fontFamily: fonts.semiBold,
+                      }}
+                    >
                       H.M.N.L Dewasiritha
                     </Text>
-                    <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                    <Text
+                      style={{
+                        color: "#5E788F",
+                        fontSize: 14,
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       2023-08-10 · Sunday
                     </Text>
                   </View>
@@ -1354,6 +1483,7 @@ export default function Dashboard() {
                         color: "#FF8800",
                         fontSize: 12,
                         fontWeight: "500",
+                        fontFamily: fonts.medium,
                       }}
                     >
                       Pending
@@ -1380,10 +1510,22 @@ export default function Dashboard() {
                   }}
                 >
                   <View>
-                    <Text style={{ fontWeight: "600", color: "#323D68" }}>
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        color: "#323D68",
+                        fontFamily: fonts.semiBold,
+                      }}
+                    >
                       Nimal Bandara
                     </Text>
-                    <Text style={{ color: "#5E788F", fontSize: 14 }}>
+                    <Text
+                      style={{
+                        color: "#5E788F",
+                        fontSize: 14,
+                        fontFamily: fonts.regular,
+                      }}
+                    >
                       2023-08-12 · Tuesday | Case # 203247
                     </Text>
                   </View>
@@ -1400,6 +1542,7 @@ export default function Dashboard() {
                         color: "#2E7D32",
                         fontSize: 12,
                         fontWeight: "500",
+                        fontFamily: fonts.medium,
                       }}
                     >
                       Confirmed
@@ -1465,6 +1608,7 @@ export default function Dashboard() {
                   fontWeight: "bold",
                   marginBottom: 12,
                   color: "#323D68",
+                  fontFamily: fonts.semiBold,
                 }}
               >
                 Overall Analytics
@@ -1479,7 +1623,13 @@ export default function Dashboard() {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ color: "#5E788F", fontSize: 16 }}>
+                <Text
+                  style={{
+                    color: "#5E788F",
+                    fontSize: 16,
+                    fontFamily: fonts.regular,
+                  }}
+                >
                   Overall Analytics Chart
                 </Text>
                 {/* You can add a chart component here */}

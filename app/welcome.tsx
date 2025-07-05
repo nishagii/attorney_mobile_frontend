@@ -68,7 +68,7 @@ export default function WelcomeScreen() {
         />
 
         {/* App tagline */}
-        <Text className="text-lg text-gray-700 font-medium mt-2">
+        <Text className="text-md text-gray-700 font-medium -mt-2">
           Legal expertise at your fingertips
         </Text>
       </Animated.View>
