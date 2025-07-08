@@ -28,7 +28,7 @@ export default function Dashboard() {
           justifyContent: "space-between",
           alignItems: "center",
           paddingHorizontal: 20,
-          paddingTop: 60,
+          paddingTop: 20,
           paddingBottom: 16,
           backgroundColor: "#111827",
         }}
@@ -94,7 +94,7 @@ export default function Dashboard() {
 
         {/* White Rounded Overlay Container with Gradient */}
         <LinearGradient
-          colors={["#fff3e0", "#ffffff", "#ffffff"]}
+          colors={["#fff3e0", "#f9fafb", "#f9fafb"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1.1 }}
           style={{
