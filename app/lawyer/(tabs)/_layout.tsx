@@ -62,6 +62,17 @@ const _layout = () => {
       />
 
       <Tabs.Screen
+        name="payments"
+        options={{
+          title: "Payments",
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="card" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
