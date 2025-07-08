@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Image, Text } from "react-native";
+import { Image, Text, View } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import Animated, {
@@ -43,7 +43,7 @@ export default function WelcomeScreen() {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -53,7 +53,7 @@ export default function WelcomeScreen() {
   });
 
   return (
-    <View className="flex-1 bg-white justify-center items-center">
+    <View className="flex-1 justify-center items-center bg-white">
       <StatusBar style="dark" />
 
       <Animated.View
@@ -68,7 +68,7 @@ export default function WelcomeScreen() {
         />
 
         {/* App tagline */}
-        <Text className="text-lg text-gray-700 font-medium mt-2">
+        <Text className="text-md text-gray-700 font-medium -mt-2">
           Legal expertise at your fingertips
         </Text>
       </Animated.View>
