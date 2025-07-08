@@ -65,97 +65,79 @@ const Cases = () => {
       caseItem.caseType.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Active":
-        return "text-green-600";
-      case "Closed":
-        return "text-gray-600";
-      case "Pending":
-        return "text-yellow-600";
-      default:
-        return "text-gray-600";
-    }
-  };
-
   const renderCaseCard = (caseItem: CaseItem) => (
     <View
       key={caseItem.id}
-      className="bg-white rounded-lg p-4 mb-4 shadow-sm border border-gray-100"
+      className="bg-white rounded-xl p-5 mb-4"
+      style={{
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        elevation: 1,
+      }}
     >
-      <Text className="text-lg font-semibold text-gray-800 mb-2">
+      <Text className="text-lg font-semibold text-gray-600 mb-4">
         {caseItem.title}
       </Text>
 
-      <View className="flex-row justify-between mb-3">
-        <View className="flex-1 mr-4">
-          <Text className="text-sm text-gray-500 mb-1">Case Owner</Text>
-          <Text className="text-sm font-medium text-gray-800">
+      <View className="space-y-3 mb-5">
+        <View>
+          <Text className="text-sm text-gray-500 mb-1">Case Owner:</Text>
+          <Text className="text-sm font-medium text-gray-900">
             {caseItem.caseOwner}
           </Text>
         </View>
-        <View className="flex-1">
-          <Text className="text-sm text-gray-500 mb-1">Case Type</Text>
-          <Text className="text-sm font-medium text-gray-800">
+
+        <View>
+          <Text className="text-sm text-gray-500 mb-1">Case Type:</Text>
+          <Text className="text-sm font-medium text-gray-900">
             {caseItem.caseType}
           </Text>
         </View>
-      </View>
 
-      <View className="flex-row justify-between mb-3">
-        <View className="flex-1 mr-4">
-          <Text className="text-sm text-gray-500 mb-1">Next Hearing</Text>
-          <Text className="text-sm font-medium text-gray-800">
+        <View>
+          <Text className="text-sm text-gray-500 mb-1">Next Hearing:</Text>
+          <Text className="text-sm font-medium text-gray-900">
             {caseItem.nextHearing}
           </Text>
         </View>
-        <View className="flex-1">
-          <Text className="text-sm text-gray-500 mb-1">Associates</Text>
-          <Text className="text-sm font-medium text-gray-800">
+
+        <View>
+          <Text className="text-sm text-gray-500 mb-1">Junior Associated:</Text>
+          <Text className="text-sm font-medium text-gray-900">
             {caseItem.associates.join(", ")}
           </Text>
         </View>
-      </View>
 
-      <View className="flex-row justify-between mb-4">
-        <View className="flex-1 mr-4">
-          <Text className="text-sm text-gray-500 mb-1">Status</Text>
-          <Text
-            className={`text-sm font-medium ${getStatusColor(caseItem.status)}`}
-          >
-            {caseItem.status}
-          </Text>
-        </View>
-        <View className="flex-1">
-          <Text className="text-sm text-gray-500 mb-1">Amount</Text>
-          <Text className="text-sm font-medium text-gray-800">
+        <View>
+          <Text className="text-sm text-gray-500 mb-1">Fee:</Text>
+          <Text className="text-sm font-medium text-gray-900">
             {caseItem.amount}
           </Text>
         </View>
       </View>
 
-      <View className="flex-row justify-between">
+      <View className="flex-row space-x-3">
         <TouchableOpacity
-          className="flex-1 bg-gray-100 rounded-lg py-2 px-4 mr-2"
+          className="flex-1 bg-black rounded-lg py-3"
           onPress={() => {
             // Handle close case action
             console.log("Close case:", caseItem.id);
           }}
         >
-          <Text className="text-center text-gray-700 font-medium">
-            Close Case
-          </Text>
+          <Text className="text-center text-white font-medium">Close Case</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 bg-black rounded-lg py-2 px-4 ml-2"
+          className="flex-1 bg-gray-50 rounded-lg py-3"
           onPress={() => {
             // Navigate to case details
             router.push(`/case/${caseItem.id}`);
           }}
         >
-          <Text className="text-center text-white font-medium">
-            View Details
+          <Text className="text-center text-gray-900 font-medium">
+            View Details →
           </Text>
         </TouchableOpacity>
       </View>
@@ -180,21 +162,40 @@ const Cases = () => {
       />
 
       {/* Search Bar */}
-      <View className="px-5 py-4 bg-white">
-        <View className="flex-row items-center bg-gray-100 rounded-lg px-4 py-3">
+      <View className="px-5 py-4 bg-gray-50">
+        <View
+          className="flex-row items-center rounded-lg px-4 py-3"
+          style={{
+            backgroundColor: "rgba(255, 136, 0, 0.1)", // #ff8800 with 10% opacity
+          }}
+        >
           <Ionicons
             name="search-outline"
             size={20}
-            color="#666"
-            className="mr-3"
+            color="#999"
+            style={{ marginRight: 12 }}
           />
           <TextInput
             placeholder="Search cases..."
             value={searchQuery}
             onChangeText={setSearchQuery}
             className="flex-1 text-base"
-            placeholderTextColor="#666"
+            placeholderTextColor="#999"
+            style={{
+              fontSize: 16,
+              color: "#333",
+              borderWidth: 0,
+              outline: "none",
+            }}
           />
+          {searchQuery.length > 0 && (
+            <TouchableOpacity
+              onPress={() => setSearchQuery("")}
+              style={{ marginLeft: 8 }}
+            >
+              <Ionicons name="close-circle" size={20} color="#999" />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
@@ -203,6 +204,16 @@ const Cases = () => {
         className="flex-1 px-5 py-2"
         showsVerticalScrollIndicator={false}
       >
+        {searchQuery.length > 0 && (
+          <View className="mb-3">
+            <Text className="text-sm text-gray-600">
+              {filteredCases.length} case{filteredCases.length !== 1 ? "s" : ""}{" "}
+              found
+              {searchQuery ? ` for "${searchQuery}"` : ""}
+            </Text>
+          </View>
+        )}
+
         {filteredCases.length > 0 ? (
           filteredCases.map(renderCaseCard)
         ) : (
