@@ -8,8 +8,8 @@ import {
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
+import Header from "@/app/components/Header";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
@@ -105,32 +105,19 @@ const CalendarScreen = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
 
       {/* Header */}
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-          paddingVertical: 16,
-          backgroundColor: "#ffffff",
-          borderBottomWidth: 1,
-          borderBottomColor: "#e5e7eb",
+      <Header
+        title="Case Calendar"
+        showMenu={true}
+        showNotification={true}
+        onMenuPress={() => {
+          // Handle menu press
+          console.log("Menu pressed");
         }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            color: "#111827",
-            fontFamily: fonts.semiBold,
-          }}
-        >
-          Case Calendar
-        </Text>
-        <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color="#111827" />
-        </TouchableOpacity>
-      </View>
+        onNotificationPress={() => {
+          // Handle notification press
+          console.log("Notification pressed");
+        }}
+      />
 
       <ScrollView style={{ flex: 1 }}>
         {/* Selected Date Section */}
