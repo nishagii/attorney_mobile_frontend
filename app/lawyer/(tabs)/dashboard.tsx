@@ -94,7 +94,7 @@ export default function Dashboard() {
 
         {/* White Rounded Overlay Container with Gradient */}
         <LinearGradient
-          colors={["#fff3e0", "#ffffff", "#ffffff"]}
+          colors={["#fff3e0", "#f9fafb", "#f9fafb"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1.1 }}
           style={{
