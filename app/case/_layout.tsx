@@ -1,12 +1,21 @@
-import { Text, View } from 'react-native'
-import React from 'react'
+import { Stack } from "expo-router";
+import React from "react";
 
-const _layout = () => {
+const CaseLayout = () => {
   return (
-    <View>
-      <Text>_layout</Text>
-    </View>
-  )
-}
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="[id]"
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack>
+  );
+};
 
-export default _layout
+export default CaseLayout;
