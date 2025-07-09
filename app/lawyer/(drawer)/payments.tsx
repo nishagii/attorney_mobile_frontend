@@ -1,6 +1,6 @@
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function Payments() {
   const today = new Date().toLocaleDateString("en-US", {
@@ -12,154 +12,132 @@ export default function Payments() {
   return (
     <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="flex-row justify-between items-center px-5 pt-12 pb-4 border-b border-gray-200">
+      <View className="flex-row justify-between items-center px-5 pt-12 pb-4 bg-gray-50">
         <TouchableOpacity>
-          <Ionicons name="menu-outline" size={24} color="black" />
+          <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <View className="items-center">
-          <Text className="text-xl font-semibold">Payments</Text>
-          <Text className="text-gray-500 text-sm">Today is {today}</Text>
+        <Text className="text-xl font-semibold">Due Payments</Text>
+        <View className="flex-row">
+          <TouchableOpacity className="mr-3">
+            <Ionicons name="search" size={24} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons name="ellipsis-vertical" size={24} color="black" />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color="black" />
-        </TouchableOpacity>
       </View>
 
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+      <ScrollView className="flex-1 bg-gray-50" showsVerticalScrollIndicator={false}>
         {/* Welcome Section */}
         <View className="px-5 pt-6 pb-4">
-          <Text className="text-2xl font-bold">Hello Thusitha,</Text>
-          <Text className="text-gray-500">Welcome</Text>
+          <Text className="text-2xl font-bold text-gray-800">Hello Nishagi Jewantha, Welcome</Text>
+          <Text className="text-gray-500 mt-1">Today is 07/08/2025</Text>
         </View>
 
-        {/* Day Summary */}
+        {/* Due Payments Header */}
         <View className="px-5 mb-6">
-          <View className="flex-row justify-between items-center mb-4">
-            <Text className="text-xl font-bold">Day Summary</Text>
+          <View className="flex-row justify-between items-center mb-6">
+            <Text className="text-2xl font-bold text-black">Due Payments</Text>
             <View className="flex-row">
-              <TouchableOpacity className="bg-gray-100 px-4 py-2 rounded-lg mr-2">
-                <Text className="text-gray-600">📄 Print</Text>
+              <TouchableOpacity className="bg-white border border-gray-300 px-4 py-2 rounded-lg mr-2">
+                <Text className="text-gray-700">Export</Text>
               </TouchableOpacity>
-              <TouchableOpacity className="bg-gray-100 px-4 py-2 rounded-lg">
-                <Text className="text-gray-600">↗️ Share</Text>
+              <TouchableOpacity className="bg-white border border-gray-300 px-4 py-2 rounded-lg">
+                <Text className="text-gray-700">Print</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <Text className="text-gray-500 mb-4">Today id - {today.replace(/\//g, '/')}</Text>
 
-          {/* Stats Grid */}
-          <View className="flex-row flex-wrap -mx-1">
-            <View className="w-1/2 px-1 mb-2">
-              <View className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <Text className="text-gray-500 text-sm">Clients reached</Text>
-                <Text className="text-4xl font-bold mt-2">05</Text>
-                <Text className="text-gray-400 text-xs mt-1">Total Clients - 456</Text>
+          {/* Payment Cards */}
+          {/* Anura De Mel */}
+          <View className="bg-gray-200 rounded-xl p-4 mb-4">
+            <View className="flex-row justify-between items-start mb-3">
+              <View>
+                <Text className="text-xl font-bold text-black">Anura De Mel</Text>
+                <Text className="text-gray-600">Due: 07/31/2025</Text>
+              </View>
+              <View className="items-end">
+                <Text className="text-2xl font-bold text-black">$2,500.00</Text>
+                <View className="bg-green-200 px-3 py-1 rounded-full mt-2">
+                  <Text className="text-green-700 text-sm font-medium">Outstanding</Text>
+                </View>
               </View>
             </View>
+            <TouchableOpacity className="bg-black rounded-lg py-3 px-6 self-end">
+              <Text className="text-white font-semibold">Mark Paid</Text>
+            </TouchableOpacity>
+          </View>
 
-            <View className="w-1/2 px-1 mb-2">
-              <View className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <Text className="text-gray-500 text-sm">On going cases</Text>
-                <Text className="text-4xl font-bold mt-2">05</Text>
+          {/* S. Fernando */}
+          <View className="bg-gray-200 rounded-xl p-4 mb-4">
+            <View className="flex-row justify-between items-start mb-3">
+              <View>
+                <Text className="text-xl font-bold text-black">S. Fernando</Text>
+                <Text className="text-gray-600">Due: 08/12/2025</Text>
+              </View>
+              <View className="items-end">
+                <Text className="text-2xl font-bold text-black">$3,500.00</Text>
+                <View className="bg-red-200 px-3 py-1 rounded-full mt-2">
+                  <Text className="text-red-700 text-sm font-medium">Overdue</Text>
+                </View>
               </View>
             </View>
+            <TouchableOpacity className="bg-black rounded-lg py-3 px-6 self-end">
+              <Text className="text-white font-semibold">Mark Paid</Text>
+            </TouchableOpacity>
+          </View>
 
-            <View className="w-1/2 px-1 mb-2">
-              <View className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <Text className="text-gray-500 text-sm">Closed cases</Text>
-                <Text className="text-4xl font-bold mt-2">05</Text>
-                <Text className="text-gray-400 text-xs mt-1">Remaining - 6</Text>
+          {/* Kamal J. */}
+          <View className="bg-gray-200 rounded-xl p-4 mb-4">
+            <View className="flex-row justify-between items-start mb-3">
+              <View>
+                <Text className="text-xl font-bold text-black">Kamal J.</Text>
+                <Text className="text-gray-600">Due: 07/21/2025</Text>
+              </View>
+              <View className="items-end">
+                <Text className="text-2xl font-bold text-black">$2,180.00</Text>
+                <View className="bg-green-200 px-3 py-1 rounded-full mt-2">
+                  <Text className="text-green-700 text-sm font-medium">Outstanding</Text>
+                </View>
               </View>
             </View>
+            <TouchableOpacity className="bg-black rounded-lg py-3 px-6 self-end">
+              <Text className="text-white font-semibold">Mark Paid</Text>
+            </TouchableOpacity>
+          </View>
 
-            <View className="w-1/2 px-1 mb-2">
-              <View className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <Text className="text-gray-500 text-sm">Income</Text>
-                <Text className="text-4xl font-bold mt-2">65655</Text>
-                <Text className="text-gray-400 text-xs mt-1">Total for month - 678966</Text>
+          {/* Ruwan Perera */}
+          <View className="bg-gray-200 rounded-xl p-4 mb-4">
+            <View className="flex-row justify-between items-start mb-3">
+              <View>
+                <Text className="text-xl font-bold text-black">Ruwan Perera</Text>
+                <Text className="text-gray-600">Due: 08/01/2025</Text>
               </View>
+              <View className="items-end">
+                <Text className="text-2xl font-bold text-black">$1,150.00</Text>
+                <View className="bg-red-200 px-3 py-1 rounded-full mt-2">
+                  <Text className="text-red-700 text-sm font-medium">Overdue</Text>
+                </View>
+              </View>
+            </View>
+            <TouchableOpacity className="bg-black rounded-lg py-3 px-6 self-end">
+              <Text className="text-white font-semibold">Mark Paid</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Total Due Payments */}
+          <View className="mt-6 bg-white rounded-xl p-4 border border-gray-200">
+            <View className="flex-row justify-between items-center">
+              <Text className="text-xl font-bold text-black">Total Due Payments</Text>
+              <Text className="text-3xl font-bold text-black">$9,330.00</Text>
             </View>
           </View>
         </View>
 
-        {/* Clients reached */}
-        <View className="px-5 mt-6">
-          <Text className="text-xl font-bold mb-3">Clients reached</Text>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Kamal - 0713424333</Text>
-            <Text className="text-gray-500 text-sm">Galle</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Kamal - 0784433661</Text>
-            <Text className="text-gray-500 text-sm">Galle</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Kamal - 0784433545</Text>
-          </View>
-        </View>
-
-        {/* New Cases */}
-        <View className="px-5 mt-6">
-          <Text className="text-xl font-bold mb-3">New Cases</Text>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0713424333</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0784433661</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0784433545</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0713424333</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0784433661</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <Text className="font-semibold">Galle</Text>
-            <Text className="text-gray-500 text-sm">Kamal - 0784433545</Text>
-          </View>
-        </View>
-
-        {/* Unread Messages */}
-        <View className="px-5 mt-6 mb-8">
-          <Text className="text-xl font-bold mb-3">Unread Message</Text>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <View className="flex-row justify-between mb-2">
-              <Text className="text-gray-500">Location: <Text className="font-semibold text-black">Galle</Text></Text>
-              <Text className="text-gray-500">Client: <Text className="font-semibold text-black">Kumara</Text></Text>
-            </View>
-            <Text className="text-gray-500">Description:</Text>
-            <Text className="text-gray-600">hjdsjajk jdhrafkj ksfdafjk jkasdfsfd fsdajkfdsak</Text>
-          </View>
-
-          <View className="bg-white rounded-xl mb-3 p-4 shadow-sm border border-gray-100">
-            <View className="flex-row justify-between mb-2">
-              <Text className="text-gray-500">Location: <Text className="font-semibold text-black">Galle</Text></Text>
-              <Text className="text-gray-500">Client: <Text className="font-semibold text-black">Kumara</Text></Text>
-            </View>
-            <Text className="text-gray-500">Description:</Text>
-            <Text className="text-gray-600">hjdsjajk jdhrafkj ksfdafjk jkasdfsfd fsdajkfdsak</Text>
-          </View>
-
-          <TouchableOpacity className="bg-gray-900 rounded-xl p-4 items-center">
-            <Text className="text-white font-semibold">View All Messages</Text>
+        {/* Create New Payment Button */}
+        <View className="px-5 mb-8">
+          <TouchableOpacity className="bg-black rounded-xl py-4 items-center">
+            <Text className="text-white text-lg font-semibold">Create New Payment</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
