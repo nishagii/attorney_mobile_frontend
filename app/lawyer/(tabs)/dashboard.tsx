@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { fonts } from "@/constants/fonts";
+import Header from "@/app/components/Header";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -19,39 +20,41 @@ export default function Dashboard() {
     { useNativeDriver: false }
   );
 
+  const handleMenuPress = () => {
+    // Handle menu action
+    console.log("Menu pressed");
+  };
+
+  const handleNotificationPress = () => {
+    // Handle notification action
+    console.log("Notification pressed");
+  };
+
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(tabs)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#111827" }}>
-      {/* Header */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          paddingTop: 20,
-          paddingBottom: 16,
-          backgroundColor: "#111827",
-        }}
-      >
-        <TouchableOpacity>
-          <Ionicons name="menu-outline" size={24} color="#fff" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{ position: "relative" }}>
-          <Ionicons name="notifications-outline" size={24} color="#fff" />
-          <View
-            style={{
-              position: "absolute",
-              top: -2,
-              right: -2,
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: "#FF8800",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+      {/* Header with blue background and white icons */}
+      <Header
+        title=""
+        showMenu={true}
+        showNotification={true}
+        showNotificationBadge={true}
+        onMenuPress={handleMenuPress}
+        onNotificationPress={handleNotificationPress}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
+        backgroundColor="#111827"
+        textColor="#ffffff"
+        iconColor="#ffffff"
+        borderColor="#111827"
+      />
 
       {/* Main Content with Layered Background */}
       <View style={{ flex: 1, backgroundColor: "#111827" }}>
