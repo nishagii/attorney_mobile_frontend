@@ -1,15 +1,15 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
+import {
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 export default function ProfileScreen() {
   const handlePaymentsPress = () => {

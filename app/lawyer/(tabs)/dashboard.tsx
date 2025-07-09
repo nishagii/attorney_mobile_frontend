@@ -1,16 +1,16 @@
-import {
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Animated,
-} from "react-native";
-import React, { useRef } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { fonts } from "@/constants/fonts";
 import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
+import React, { useRef } from "react";
+import {
+    Animated,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;

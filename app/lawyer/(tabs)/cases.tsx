@@ -1,14 +1,14 @@
+import Header from "@/app/components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import Header from "@/app/components/Header";
 
 interface CaseItem {
   id: string;

@@ -1,16 +1,16 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
+import { router } from "expo-router";
 import React, { useState } from "react";
+import {
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
