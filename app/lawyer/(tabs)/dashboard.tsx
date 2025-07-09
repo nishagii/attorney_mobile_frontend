@@ -5,14 +5,16 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { fonts } from "@/constants/fonts";
+import DrawerMenu from "../../components/DrawerMenu";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -33,7 +35,7 @@ export default function Dashboard() {
           backgroundColor: "#111827",
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIsMenuVisible(true)}>
           <Ionicons name="menu-outline" size={24} color="#fff" />
         </TouchableOpacity>
 
@@ -1638,6 +1640,12 @@ export default function Dashboard() {
           </ScrollView>
         </LinearGradient>
       </View>
+      
+      {/* Drawer Menu */}
+      <DrawerMenu
+        visible={isMenuVisible}
+        onClose={() => setIsMenuVisible(false)}
+      />
     </View>
   );
 }
