@@ -5,7 +5,7 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, router } from "expo-router";
@@ -13,6 +13,14 @@ import { fonts } from "@/constants/fonts";
 
 const CaseDetailScreen = () => {
   const { id } = useLocalSearchParams();
+  const [showPaymentDropdown, setShowPaymentDropdown] = useState(false);
+  const [currentPaymentStatus, setCurrentPaymentStatus] = useState("");
+
+  const paymentStatusOptions = [
+    { label: "Paid", value: "Paid", color: "#10b981" },
+    { label: "Partially payed", value: "Partially payed", color: "#ff8800" },
+    { label: "Not payed", value: "Not payed", color: "#ef4444" },
+  ];
 
   // Sample case data - in real app, this would come from API based on ID
   const getCaseData = (caseId: string) => {
@@ -83,7 +91,7 @@ const CaseDetailScreen = () => {
         opposingParty: "State Guardian Office",
         agreedFee: "$3,500.00",
         totalExpenses: "$180.00",
-        paymentStatus: "Due",
+        paymentStatus: "Not payed",
         invoicedAmount: "$3,680.00",
         hearings: [
           {
@@ -121,7 +129,7 @@ const CaseDetailScreen = () => {
         opposingParty: "Mordred Pendragon (Contestant)",
         agreedFee: "$7,200.00",
         totalExpenses: "$420.00",
-        paymentStatus: "Paid",
+        paymentStatus: "Partially payed",
         invoicedAmount: "$7,620.00",
         hearings: [
           {
@@ -149,6 +157,13 @@ const CaseDetailScreen = () => {
   };
 
   const caseData = getCaseData(id as string);
+
+  // Initialize payment status
+  useEffect(() => {
+    if (caseData && caseData.paymentStatus) {
+      setCurrentPaymentStatus(caseData.paymentStatus);
+    }
+  }, [caseData]);
 
   if (!caseData) {
     return (
@@ -198,7 +213,16 @@ const CaseDetailScreen = () => {
         </Text>
       </View>
 
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+        onTouchStart={(e) => {
+          // Only close dropdown if clicking outside of it
+          if (showPaymentDropdown) {
+            setShowPaymentDropdown(false);
+          }
+        }}
+      >
         {/* Case Overview */}
         <View
           style={{
@@ -552,18 +576,95 @@ const CaseDetailScreen = () => {
               >
                 Payment Status:
               </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "500",
-                  color:
-                    caseData.paymentStatus === "Paid" ? "#10b981" : "#ff8800",
-                  marginBottom: 12,
-                  fontFamily: fonts.medium,
-                }}
-              >
-                {caseData.paymentStatus} ✓
-              </Text>
+              <View style={{ position: "relative", zIndex: 1 }}>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingHorizontal: 12,
+                    paddingVertical: 8,
+                    borderWidth: 1,
+                    borderColor: "#e5e7eb",
+                    borderRadius: 6,
+                    backgroundColor: "#ffffff",
+                    marginBottom: showPaymentDropdown ? 0 : 12,
+                  }}
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    setShowPaymentDropdown(!showPaymentDropdown);
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color:
+                        paymentStatusOptions.find(
+                          (option) => option.value === currentPaymentStatus
+                        )?.color || "#6b7280",
+                      fontFamily: fonts.medium,
+                    }}
+                  >
+                    {currentPaymentStatus || "Select Status"}
+                    {currentPaymentStatus && " ✓"}
+                  </Text>
+                  <Ionicons
+                    name={showPaymentDropdown ? "chevron-up" : "chevron-down"}
+                    size={16}
+                    color="#6b7280"
+                  />
+                </TouchableOpacity>
+
+                {showPaymentDropdown && (
+                  <View
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderWidth: 1,
+                      borderColor: "#e5e7eb",
+                      borderTopWidth: 0,
+                      borderRadius: 6,
+                      borderTopLeftRadius: 0,
+                      borderTopRightRadius: 0,
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 4,
+                      elevation: 3,
+                      marginBottom: 12,
+                    }}
+                  >
+                    {paymentStatusOptions.map((option, index) => (
+                      <TouchableOpacity
+                        key={option.value}
+                        style={{
+                          paddingHorizontal: 12,
+                          paddingVertical: 12,
+                          borderBottomWidth:
+                            index < paymentStatusOptions.length - 1 ? 1 : 0,
+                          borderBottomColor: "#f3f4f6",
+                        }}
+                        onPress={(e) => {
+                          e.stopPropagation();
+                          setCurrentPaymentStatus(option.value);
+                          setShowPaymentDropdown(false);
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            fontWeight: "500",
+                            color: option.color,
+                            fontFamily: fonts.medium,
+                          }}
+                        >
+                          {option.label}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
+              </View>
               <Text
                 style={{
                   fontSize: 14,
