@@ -5,11 +5,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useRef } from "react";
 import {
-    Animated,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  Animated,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function Dashboard() {
@@ -176,7 +176,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
-                onPress={() => router.push("/lawyer/(screens)/duePayments")}
+                onPress={() => router.push("/lawyer/(screens)/payments")}
               >
                 <View
                   style={{
@@ -357,7 +357,7 @@ export default function Dashboard() {
                         elevation: 20,
                       }} // Hide content that overflows during scaling
                       onPress={() =>
-                        router.push("/lawyer/(screens)/duePayments")
+                        router.push("/lawyer/(screens)/payments")
                       }
                     >
                       <Animated.View

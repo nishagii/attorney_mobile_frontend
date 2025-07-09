@@ -1,38 +1,345 @@
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import Header from "@/app/components/Header";
+import { router } from "expo-router";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View, Platform } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+
+type PaymentStatus = "Overdue" | "Due Soon" | "Pending";
+type FilterType = "All" | "Overdue" | "This Week";
+
+interface Payment {
+  id: string;
+  clientName: string;
+  amount: number;
+  caseNumber: string;
+  court: string;
+  dueDate: string;
+  status: PaymentStatus;
+}
+
+// Custom Tab Icon Component
+const TabIcon = ({ IconComponent, iconName, focused, onPress }: {
+  IconComponent: any;
+  iconName: string;
+  focused: boolean;
+  onPress: () => void;
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        width: 50,
+        height: 50,
+        borderRadius: 10,
+        backgroundColor: focused ? "#FF8800" : "transparent",
+        transform: [{ scale: focused ? 1.1 : 1 }],
+      }}
+    >
+      <IconComponent
+        name={iconName}
+        size={24}
+        color={focused ? "#ffffff" : "#6b7280"}
+      />
+    </TouchableOpacity>
+  );
+};
+
+// Custom Bottom Tab Bar Component
+const CustomBottomTabs = ({ currentRoute }: { currentRoute: string }) => {
+  return (
+    <View
+      style={{
+        backgroundColor: "#ffffff",
+        borderTopWidth: 1,
+        borderTopColor: "#f3f4f6",
+        height: Platform.OS === "ios" ? 90 : 80,
+        paddingBottom: Platform.OS === "ios" ? 25 : 12,
+        paddingTop: 12,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: -2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 10,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }}
+    >
+      <TabIcon
+        IconComponent={MaterialIcons}
+        iconName="dashboard"
+        focused={currentRoute === "dashboard"}
+        onPress={() => router.push("/lawyer/(tabs)/dashboard")}
+      />
+      <TabIcon
+        IconComponent={Ionicons}
+        iconName="calendar"
+        focused={currentRoute === "calendar"}
+        onPress={() => router.push("/lawyer/(tabs)/calendar")}
+      />
+      <TabIcon
+        IconComponent={Ionicons}
+        iconName="briefcase"
+        focused={currentRoute === "cases"}
+        onPress={() => router.push("/lawyer/(tabs)/cases")}
+      />
+      <TabIcon
+        IconComponent={Ionicons}
+        iconName="search"
+        focused={currentRoute === "search"}
+        onPress={() => router.push("/lawyer/(tabs)/search")}
+      />
+      <TabIcon
+        IconComponent={Ionicons}
+        iconName="person"
+        focused={currentRoute === "profile"}
+        onPress={() => router.push("/lawyer/(tabs)/profile")}
+      />
+    </View>
+  );
+};
 
 export default function Payments() {
+  const [activeFilter, setActiveFilter] = useState<FilterType>("All");
+  
   const today = new Date().toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
+  // Sample data for payments
+  const payments: Payment[] = [
+    {
+      id: "1",
+      clientName: "H.M.S.J Dewasiritha",
+      amount: 850,
+      caseNumber: "103464",
+      court: "High Court",
+      dueDate: "March 15, 2023",
+      status: "Overdue",
+    },
+    {
+      id: "2",
+      clientName: "Sahan Perera",
+      amount: 650,
+      caseNumber: "103465",
+      court: "Magistrate Court",
+      dueDate: "March 30, 2023",
+      status: "Due Soon",
+    },
+    {
+      id: "3",
+      clientName: "Kamala Silva",
+      amount: 750,
+      caseNumber: "103465",
+      court: "District Court",
+      dueDate: "March 10, 2023",
+      status: "Overdue",
+    },
+    {
+      id: "4",
+      clientName: "Nimal Bandara",
+      amount: 250,
+      caseNumber: "203247",
+      court: "Commercial Court",
+      dueDate: "April 5, 2023",
+      status: "Pending",
+    },
+  ];
+
+  // Filter payments based on active filter
+  const filteredPayments = payments.filter((payment) => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "Overdue") return payment.status === "Overdue";
+    if (activeFilter === "This Week") {
+      // This is a simplified check - in a real app, you'd compare actual dates
+      return payment.status === "Due Soon";
+    }
+    return true;
+  });
+
+  // Calculate totals
+  const totalOutstanding = payments.reduce(
+    (sum, payment) => sum + payment.amount,
+    0
+  );
+  const overdueCount = payments.filter((p) => p.status === "Overdue").length;
+  const dueSoonCount = payments.filter((p) => p.status === "Due Soon").length;
+
   return (
     <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="flex-row justify-between items-center px-5 pt-12 pb-4 border-b border-gray-200">
-        <TouchableOpacity>
-          <Ionicons name="menu-outline" size={24} color="black" />
-        </TouchableOpacity>
-        <View className="items-center">
-          <Text className="text-xl font-semibold">Payments</Text>
-          <Text className="text-gray-500 text-sm">Today is {today}</Text>
-        </View>
-        <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color="black" />
-        </TouchableOpacity>
+      <Header
+        title="Payments"
+        showMenu={true}
+        showNotification={true}
+        onMenuPress={() => {
+          // Handle menu press
+          console.log("Menu pressed");
+        }}
+        onNotificationPress={() => {
+          // Handle notification press
+          console.log("Notification pressed");
+        }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
+      />
+
+      {/* Date Display */}
+      <View className="px-5 py-3 bg-white border-b border-gray-100">
+        <Text className="text-gray-500 text-sm text-center">Today is {today}</Text>
       </View>
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        {/* Welcome Section */}
-        <View className="px-5 pt-6 pb-4">
-          <Text className="text-2xl font-bold">Hello Thusitha,</Text>
-          <Text className="text-gray-500">Welcome</Text>
+        {/* Summary Card - Due Payments Overview */}
+        <View className="mx-4 my-4">
+          <View className="rounded-3xl p-6 bg-gray-600">
+            <Text className="text-white text-lg text-center mb-2">
+              Total Outstanding
+            </Text>
+            <Text className="text-white text-5xl font-bold text-center">
+              ${totalOutstanding}
+            </Text>
+            <Text className="text-white text-center mt-4 opacity-80">
+              {overdueCount} payments overdue • {dueSoonCount} due soon
+            </Text>
+          </View>
         </View>
 
-        {/* Day Summary */}
+        {/* Filter Tabs */}
+        <View className="mx-4 mb-4">
+          <View className="bg-gray-100 rounded-full flex-row p-1">
+            <TouchableOpacity
+              onPress={() => setActiveFilter("All")}
+              className={`flex-1 py-3 px-4 rounded-full ${
+                activeFilter === "All" ? "bg-white" : ""
+              }`}
+            >
+              <Text
+                className={`text-center ${
+                  activeFilter === "All"
+                    ? "text-blue-500 font-medium"
+                    : "text-gray-500"
+                }`}
+              >
+                All
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setActiveFilter("Overdue")}
+              className={`flex-1 py-3 px-4 rounded-full ${
+                activeFilter === "Overdue" ? "bg-white" : ""
+              }`}
+            >
+              <Text
+                className={`text-center ${
+                  activeFilter === "Overdue"
+                    ? "text-blue-500 font-medium"
+                    : "text-gray-500"
+                }`}
+              >
+                Overdue
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setActiveFilter("This Week")}
+              className={`flex-1 py-3 px-4 rounded-full ${
+                activeFilter === "This Week" ? "bg-white" : ""
+              }`}
+            >
+              <Text
+                className={`text-center ${
+                  activeFilter === "This Week"
+                    ? "text-blue-500 font-medium"
+                    : "text-gray-500"
+                }`}
+              >
+                This Week
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Payment List */}
+        <View className="px-4 mb-6">
+          <Text className="text-xl font-bold mb-4">Due Payments</Text>
+          {filteredPayments.map((payment) => (
+            <View
+              key={payment.id}
+              className="mb-4 bg-white rounded-xl border border-gray-100 overflow-hidden"
+            >
+              {/* Colored bar based on payment status */}
+              <View
+                className={`absolute left-0 top-0 bottom-0 w-1.5 ${
+                  payment.status === "Overdue"
+                    ? "bg-red-500"
+                    : payment.status === "Due Soon"
+                    ? "bg-orange-400"
+                    : "bg-blue-500"
+                }`}
+              />
+
+              <View className="pl-4 pr-4 pt-4 pb-2">
+                <View className="flex-row justify-between items-center mb-1">
+                  <Text className="text-xl font-bold">
+                    {payment.clientName}
+                  </Text>
+                  <Text className="text-xl font-bold">${payment.amount}</Text>
+                </View>
+
+                <Text className="text-gray-500 mb-2">
+                  Case #{payment.caseNumber} - {payment.court}
+                </Text>
+
+                <View className="flex-row justify-between items-center mt-3">
+                  <Text className="text-gray-500">
+                    Due: {payment.dueDate}
+                  </Text>
+
+                  <View
+                    className={`px-4 py-1 rounded-full ${
+                      payment.status === "Overdue"
+                        ? "bg-red-100"
+                        : payment.status === "Due Soon"
+                        ? "bg-orange-100"
+                        : "bg-blue-100"
+                    }`}
+                  >
+                    <Text
+                      className={`text-sm ${
+                        payment.status === "Overdue"
+                          ? "text-red-600"
+                          : payment.status === "Due Soon"
+                          ? "text-orange-600"
+                          : "text-blue-600"
+                      }`}
+                    >
+                      {payment.status}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        {/* Additional Payment Overview - Day Summary */}
         <View className="px-5 mb-6">
           <View className="flex-row justify-between items-center mb-4">
             <Text className="text-xl font-bold">Day Summary</Text>
@@ -163,6 +470,9 @@ export default function Payments() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* Custom Bottom Tabs - Always show on every screen */}
+      <CustomBottomTabs currentRoute="payments" />
     </View>
   );
 }
