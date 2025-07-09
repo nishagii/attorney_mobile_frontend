@@ -8,12 +8,21 @@ import {
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 import { fonts } from "@/constants/fonts";
 import Header from "@/app/components/Header";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
   const [currentMonth, setCurrentMonth] = useState("2025-06");
+
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
 
   // Sample time slots data for different dates
   const getTimeSlotsForDate = (date: string) => {
@@ -117,6 +126,8 @@ const CalendarScreen = () => {
           // Handle notification press
           console.log("Notification pressed");
         }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
       />
 
       <ScrollView style={{ flex: 1 }}>

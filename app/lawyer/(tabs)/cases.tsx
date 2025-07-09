@@ -24,6 +24,14 @@ interface CaseItem {
 const Cases = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
   // Sample case data - in real app, this would come from API
   const casesData: CaseItem[] = [
     {
@@ -159,6 +167,8 @@ const Cases = () => {
           // Handle notification press
           console.log("Notification pressed");
         }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
       />
 
       {/* Search Bar */}

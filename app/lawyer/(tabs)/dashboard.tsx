@@ -31,7 +31,7 @@ export default function Dashboard() {
   };
 
   const handlePaymentsPress = () => {
-    router.push("/lawyer/(tabs)/payments");
+    router.push("/lawyer/(screens)/payments");
   };
 
   const handleMeetingsPress = () => {
