@@ -1,8 +1,8 @@
 import Header from "@/app/components/Header";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View, Platform } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 type PaymentStatus = "Overdue" | "Due Soon" | "Pending";
 type FilterType = "All" | "Overdue" | "This Week";
