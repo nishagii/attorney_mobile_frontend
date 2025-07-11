@@ -102,7 +102,7 @@ export default function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
           <View
             style={{
               backgroundColor: "#111827",
-              paddingTop: 50,
+              paddingTop: 20,
               paddingBottom: 20,
               paddingHorizontal: 20,
             }}
@@ -117,7 +117,7 @@ export default function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
               <Text
                 style={{
                   color: "#fff",
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: "bold",
                   fontFamily: fonts.semiBold,
                 }}
@@ -125,13 +125,13 @@ export default function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
                 Menu
               </Text>
               <TouchableOpacity onPress={onClose}>
-                <Ionicons name="close" size={24} color="#fff" />
+                <Ionicons name="close" size={20} color="#fff" />
               </TouchableOpacity>
             </View>
           </View>
 
           {/* Menu Items */}
-          <View style={{ flex: 1, paddingTop: 20 }}>
+          <View style={{ flex: 1 }}>
             {menuItems.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -164,7 +164,7 @@ export default function DrawerMenu({ visible, onClose }: DrawerMenuProps) {
                 </View>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: "500",
                     color: "#374151",
                     fontFamily: fonts.medium,

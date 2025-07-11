@@ -559,7 +559,7 @@ const PricingPage = () => {
                         <Text style={{
                             color: '#5BB5FE',
                             fontSize: 14,
-                            fontFamily: fonts.semiBold,
+                            fontFamily: fonts.regular,
                             textDecorationLine: 'underline'
                         }}>
                             alter@support.com
