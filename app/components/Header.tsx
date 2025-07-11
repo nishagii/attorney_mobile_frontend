@@ -22,11 +22,6 @@ interface HeaderProps {
   showNotification?: boolean;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
-  backgroundColor?: string;
-  textColor?: string;
-  iconColor?: string;
-  borderColor?: string;
-  showNotificationBadge?: boolean;
 }
 
 export default function Header({
@@ -37,11 +32,6 @@ export default function Header({
   showNotification = true,
   onPaymentsPress,
   onMeetingsPress,
-  backgroundColor = "#ffffff",
-  textColor = "#111827",
-  iconColor = "#111827",
-  borderColor = "#e5e7eb",
-  showNotificationBadge = false,
 }: HeaderProps) {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -115,14 +105,14 @@ export default function Header({
           justifyContent: "space-between",
           paddingHorizontal: 20,
           paddingVertical: 16,
-          backgroundColor: backgroundColor,
+          backgroundColor: "#ffffff",
           borderBottomWidth: 1,
-          borderBottomColor: borderColor,
+          borderBottomColor: "#e5e7eb",
         }}
       >
         {showMenu ? (
           <TouchableOpacity onPress={handleMenuPress}>
-            <Ionicons name="menu-outline" size={24} color={iconColor} />
+            <Ionicons name="menu-outline" size={24} color="#111827" />
           </TouchableOpacity>
         ) : (
           <View style={{ width: 24 }} />
@@ -132,7 +122,7 @@ export default function Header({
           style={{
             fontSize: 20,
             fontWeight: "bold",
-            color: textColor,
+            color: "#111827",
             fontFamily: fonts.semiBold,
           }}
         >
@@ -140,28 +130,8 @@ export default function Header({
         </Text>
 
         {showNotification ? (
-          <TouchableOpacity
-            onPress={onNotificationPress}
-            style={{ position: "relative" }}
-          >
-            <Ionicons
-              name="notifications-outline"
-              size={24}
-              color={iconColor}
-            />
-            {showNotificationBadge && (
-              <View
-                style={{
-                  position: "absolute",
-                  top: -2,
-                  right: -2,
-                  width: 8,
-                  height: 8,
-                  borderRadius: 4,
-                  backgroundColor: "#FF8800",
-                }}
-              />
-            )}
+          <TouchableOpacity onPress={onNotificationPress}>
+            <Ionicons name="notifications-outline" size={24} color="#111827" />
           </TouchableOpacity>
         ) : (
           <View style={{ width: 24 }} />
