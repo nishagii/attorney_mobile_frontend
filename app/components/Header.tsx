@@ -22,9 +22,12 @@ interface HeaderProps {
   showNotification?: boolean;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
+  onCasedetails?: () => void;
+  onAccountUsers?: () => void;
   backgroundColor?: string;
   textColor?: string;
   iconColor?: string;
+  borderColor?: string;
   showNotificationBadge?: boolean;
 }
 
@@ -36,9 +39,12 @@ export default function Header({
   showNotification = true,
   onPaymentsPress,
   onMeetingsPress,
+  onCasedetails,
+  onAccountUsers,
   backgroundColor = "#ffffff",
   textColor = "#111827",
   iconColor = "#111827",
+  borderColor = "#e5e7eb",
   showNotificationBadge = false,
 }: HeaderProps) {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -104,6 +110,19 @@ export default function Header({
     }
   };
 
+  const handleCasedetails = () => {
+    setIsSliderOpen(false);
+    if (onCasedetails) {
+      onCasedetails();
+    }
+  }
+  const handleAccountUsers = () => {
+    setIsSliderOpen(false);
+    if (onAccountUsers) {
+      onAccountUsers();
+    }
+  };
+
   return (
     <>
       <View
@@ -113,14 +132,14 @@ export default function Header({
           justifyContent: "space-between",
           paddingHorizontal: 20,
           paddingVertical: 16,
-          backgroundColor: "#ffffff",
+          backgroundColor: backgroundColor,
           borderBottomWidth: 1,
-          borderBottomColor: "#e5e7eb",
+          borderBottomColor: borderColor,
         }}
       >
         {showMenu ? (
           <TouchableOpacity onPress={handleMenuPress}>
-            <Ionicons name="menu-outline" size={24} color="#111827" />
+            <Ionicons name="menu-outline" size={24} color={iconColor} />
           </TouchableOpacity>
         ) : (
           <View style={{ width: 24 }} />
@@ -130,7 +149,7 @@ export default function Header({
           style={{
             fontSize: 20,
             fontWeight: "bold",
-            color: "#111827",
+            color: textColor,
             fontFamily: fonts.semiBold,
           }}
         >
@@ -138,8 +157,28 @@ export default function Header({
         </Text>
 
         {showNotification ? (
-          <TouchableOpacity onPress={onNotificationPress}>
-            <Ionicons name="notifications-outline" size={24} color="#111827" />
+          <TouchableOpacity
+            onPress={onNotificationPress}
+            style={{ position: "relative" }}
+          >
+            <Ionicons
+              name="notifications-outline"
+              size={24}
+              color={iconColor}
+            />
+            {showNotificationBadge && (
+              <View
+                style={{
+                  position: "absolute",
+                  top: -2,
+                  right: -2,
+                  width: 8,
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor: "#FF8800",
+                }}
+              />
+            )}
           </TouchableOpacity>
         ) : (
           <View style={{ width: 24 }} />
@@ -202,6 +241,24 @@ export default function Header({
                 >
                   <Ionicons name="calendar-outline" size={24} color="#111827" />
                   <Text style={styles.menuText}>Meetings</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleCasedetails}
+                >
+                  <Ionicons name="file-tray-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Case Details</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleAccountUsers}
+                >
+                  <Ionicons name="people-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Account Users</Text>
                   <Ionicons name="chevron-forward" size={20} color="#6b7280" />
                 </TouchableOpacity>
               </View>

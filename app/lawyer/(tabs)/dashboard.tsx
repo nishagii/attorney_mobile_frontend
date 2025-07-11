@@ -1,59 +1,51 @@
+import React, { useRef } from "react";
 import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
   Animated,
+  TouchableOpacity,
 } from "react-native";
-import React, { useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { fonts } from "@/constants/fonts";
-import DrawerMenu from "../../components/DrawerMenu";
+import Header from "../../components/Header";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
     { useNativeDriver: false }
   );
 
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: "#111827" }}>
-      {/* Header */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          paddingTop: 20,
-          paddingBottom: 16,
-          backgroundColor: "#111827",
-        }}
-      >
-        <TouchableOpacity onPress={() => setIsMenuVisible(true)}>
-          <Ionicons name="menu-outline" size={24} color="#fff" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{ position: "relative" }}>
-          <Ionicons name="notifications-outline" size={24} color="#fff" />
-          <View
-            style={{
-              position: "absolute",
-              top: -2,
-              right: -2,
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: "#FF8800",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+      {/* Unified Header */}
+      <Header
+        title=""
+        showMenu={true}
+        showNotification={true}
+        backgroundColor="#111827"
+        textColor="#fff"
+        iconColor="#fff"
+        borderColor="#111827"
+        showNotificationBadge={true}
+        onMenuPress={() => {}}
+        onNotificationPress={() => {}}
+        onPaymentsPress={() => router.push("/lawyer/(drawer)/payments")}
+        onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
+        onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
+        onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
+      />
 
       {/* Main Content with Layered Background */}
       <View style={{ flex: 1, backgroundColor: "#111827" }}>
@@ -85,12 +77,7 @@ export default function Dashboard() {
               fontFamily: fonts.medium,
             }}
           >
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {formattedDate}
           </Text>
         </View>
 
@@ -1640,12 +1627,6 @@ export default function Dashboard() {
           </ScrollView>
         </LinearGradient>
       </View>
-
-      {/* Drawer Menu */}
-      <DrawerMenu
-        visible={isMenuVisible}
-        onClose={() => setIsMenuVisible(false)}
-      />
     </View>
   );
 }
