@@ -497,7 +497,7 @@ const PricingPage = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginBottom: 8,
-                        backgroundColor: '#F0F4F8',
+                        backgroundColor: '#E1F1FF',
                         paddingHorizontal: 16,
                         borderRadius: 20,
                         alignSelf: 'center'
