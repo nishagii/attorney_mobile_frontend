@@ -30,6 +30,8 @@ interface HeaderProps {
   showNotification?: boolean;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
+  onCasedetails?: () => void;
+  onAccountUsers?: () => void;
   backgroundColor?: string;
   textColor?: string;
   iconColor?: string;
@@ -46,6 +48,8 @@ export default function Header({
   showNotification = true,
   onPaymentsPress,
   onMeetingsPress,
+  onCasedetails,
+  onAccountUsers,
   backgroundColor = "#ffffff",
   textColor = "#111827",
   iconColor = "#111827",
@@ -335,114 +339,42 @@ export default function Header({
                     <Ionicons name="chevron-forward" size={20} color="#6b7280" />
                   </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={handleMeetingsPress}
-                  >
-                    <Ionicons name="calendar-outline" size={24} color="#111827" />
-                    <Text style={styles.menuText}>Meetings</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#6b7280" />
-                  </TouchableOpacity>
-                </View>
-              </Animated.View>
-              <TouchableOpacity
-                style={styles.backdrop}
-                onPress={handleCloseSlider}
-                activeOpacity={1}
-              />
-            </View>
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleMeetingsPress}
+                >
+                  <Ionicons name="calendar-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Meetings</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleCasedetails}
+                >
+                  <Ionicons name="file-tray-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Case Details</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleAccountUsers}
+                >
+                  <Ionicons name="people-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Account Users</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+              </View>
+            </Animated.View>
+            <TouchableOpacity
+              style={styles.backdrop}
+              onPress={handleCloseSlider}
+              activeOpacity={1}
+            />
           </View>
-        </Modal>
-      )}
-
-      {/* Notification Dropdown Modal */}
-      {notificationModalVisible && (
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={notificationModalVisible}
-          onRequestClose={handleCloseNotificationDropdown}
-        >
-          <TouchableOpacity
-            style={styles.dropdownBackdrop}
-            onPress={handleCloseNotificationDropdown}
-            activeOpacity={1}
-          >
-            <View style={styles.dropdownContainer}>
-              <Animated.View
-                style={[
-                  styles.notificationDropdown,
-                  {
-                    opacity: notificationOpacityAnim,
-                    transform: [
-                      {
-                        scaleY: notificationDropdownAnim,
-                      },
-                      {
-                        translateY: notificationDropdownAnim.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [-20, 0],
-                        }),
-                      },
-                    ],
-                  },
-                ]}
-              >
-                {/* Header */}
-                <View style={styles.notificationHeader}>
-                  <View style={styles.notificationHeaderTop}>
-                    <Text style={styles.dateText}>{formatDate()}</Text>
-                    <TouchableOpacity onPress={handleCloseNotificationDropdown}>
-                      <Ionicons name="close-outline" size={20} color="#6B7280" />
-                    </TouchableOpacity>
-                  </View>
-                  
-                  <View style={styles.notificationHeaderBottom}>
-                    <Text style={styles.notificationTitle}>Notifications</Text>
-                    <TouchableOpacity style={styles.markAllReadButton}>
-                      <Text style={styles.markAllReadText}>Mark all as read</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* Notifications List */}
-                <View style={styles.notificationsList}>
-                  {displayNotifications.map((notification) => (
-                    <TouchableOpacity
-                      key={notification.id}
-                      style={[
-                        styles.notificationItem,
-                        !notification.isRead && styles.unreadNotification,
-                      ]}
-                    >
-                      <View style={styles.notificationIconContainer}>
-                        <Ionicons
-                          name={getNotificationIcon(notification.type)}
-                          size={18}
-                          color={notification.isRead ? "#6B7280" : "#3B82F6"}
-                        />
-                        {!notification.isRead && <View style={styles.unreadDot} />}
-                      </View>
-                      
-                      <View style={styles.notificationContent}>
-                        <Text style={[
-                          styles.notificationText,
-                          !notification.isRead && styles.unreadText
-                        ]}>
-                          {notification.title}
-                        </Text>
-                        <Text style={styles.notificationTime}>
-                          {notification.time}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </Animated.View>
-            </View>
-          </TouchableOpacity>
-        </Modal>
-      )}
+        </View>
+      </Modal>
     </>
   );
 }

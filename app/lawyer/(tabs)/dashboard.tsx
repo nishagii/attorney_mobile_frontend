@@ -1,16 +1,16 @@
-import Header from "@/app/components/Header";
-import { fonts } from "@/constants/fonts";
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
 import React, { useRef } from "react";
 import {
-  Animated,
-  ScrollView,
   Text,
-  TouchableOpacity,
   View,
+  ScrollView,
+  Animated,
+  TouchableOpacity,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import { fonts } from "@/constants/fonts";
+import Header from "../../components/Header"; 
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -20,40 +20,31 @@ export default function Dashboard() {
     { useNativeDriver: false }
   );
 
-  const handleMenuPress = () => {
-    // Handle menu action
-    console.log("Menu pressed");
-  };
-
-  const handleNotificationPress = () => {
-    // Handle notification action
-    console.log("Notification pressed");
-  };
-
-  const handlePaymentsPress = () => {
-    router.push("/lawyer/(screens)/payments");
-  };
-
-  const handleMeetingsPress = () => {
-    router.push("/lawyer/(tabs)/calendar");
-  };
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: "#111827" }}>
-      {/* Header with blue background and white icons */}
+      {/* Unified Header */}
       <Header
         title=""
         showMenu={true}
         showNotification={true}
-        showNotificationBadge={true}
-        onMenuPress={handleMenuPress}
-        onNotificationPress={handleNotificationPress}
-        onPaymentsPress={handlePaymentsPress}
-        onMeetingsPress={handleMeetingsPress}
         backgroundColor="#111827"
-        textColor="#ffffff"
-        iconColor="#ffffff"
+        textColor="#fff"
+        iconColor="#fff"
         borderColor="#111827"
+        showNotificationBadge={true}
+        onMenuPress={() => {}}
+        onNotificationPress={() => {}}
+        onPaymentsPress={() => router.push("/lawyer/(drawer)/payments")}
+        onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
+        onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
+        onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
       />
 
       {/* Main Content with Layered Background */}
@@ -86,12 +77,7 @@ export default function Dashboard() {
               fontFamily: fonts.medium,
             }}
           >
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {formattedDate}
           </Text>
         </View>
 
