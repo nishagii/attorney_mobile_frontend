@@ -214,6 +214,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
+                onPress={() => router.push("/lawyer/(screens)/timeline")}
               >
                 <View
                   style={{
@@ -475,6 +476,7 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
+                    onPress={() => router.push("/lawyer/(screens)/timeline")}
                   >
                     <Animated.View
                       style={{
