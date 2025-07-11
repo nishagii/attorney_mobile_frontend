@@ -1,59 +1,70 @@
+import React, { useRef, useState } from "react";
 import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
   Animated,
+  TouchableOpacity,
 } from "react-native";
-import React, { useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
+import Header from "../../components/Header";
+import NotificationPanel from "../../lawyer/(screens)/notifications";
 
 export default function Dashboard() {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
     { useNativeDriver: false }
   );
 
-  const handleMenuPress = () => {
-    // Handle menu action
-    console.log("Menu pressed");
-  };
-
   const handleNotificationPress = () => {
-    // Handle notification action
-    console.log("Notification pressed");
+    setShowNotifications(true);
   };
 
-  const handlePaymentsPress = () => {
-    router.push("/lawyer/(tabs)/payments");
+  const handleCloseNotifications = () => {
+    setShowNotifications(false);
   };
 
-  const handleMeetingsPress = () => {
-    router.push("/lawyer/(tabs)/calendar");
+  const handleMarkAllRead = () => {
+    // Implement mark all as read logic here
+    setShowNotifications(false);
   };
+
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: "#111827" }}>
-      {/* Header with blue background and white icons */}
+      {/* Unified Header */}
       <Header
         title=""
         showMenu={true}
         showNotification={true}
-        showNotificationBadge={true}
-        onMenuPress={handleMenuPress}
-        onNotificationPress={handleNotificationPress}
-        onPaymentsPress={handlePaymentsPress}
-        onMeetingsPress={handleMeetingsPress}
         backgroundColor="#111827"
-        textColor="#ffffff"
-        iconColor="#ffffff"
+        textColor="#fff"
+        iconColor="#fff"
         borderColor="#111827"
+        showNotificationBadge={true}
+        onMenuPress={() => {}}
+        onNotificationPress={handleNotificationPress}
+        onPaymentsPress={() => router.push("/lawyer/(drawer)/payments")}
+        onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
+        onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
+        onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
+      />
+      <NotificationPanel
+        visible={showNotifications}
+        onClose={handleCloseNotifications}
+        onMarkAllRead={handleMarkAllRead}
       />
 
       {/* Main Content with Layered Background */}
@@ -86,12 +97,7 @@ export default function Dashboard() {
               fontFamily: fonts.medium,
             }}
           >
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {formattedDate}
           </Text>
         </View>
 
@@ -176,7 +182,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
-                onPress={() => router.push("/lawyer/(screens)/duePayments")}
+                onPress={() => router.push("/lawyer/(screens)/payments")}
               >
                 <View
                   style={{
@@ -357,9 +363,7 @@ export default function Dashboard() {
                         shadowRadius: 8,
                         elevation: 20,
                       }} // Hide content that overflows during scaling
-                      onPress={() =>
-                        router.push("/lawyer/(screens)/duePayments")
-                      }
+                      onPress={() => router.push("/lawyer/(screens)/payments")}
                     >
                       <Animated.View
                         style={{

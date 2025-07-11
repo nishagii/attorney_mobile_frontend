@@ -22,6 +22,8 @@ interface HeaderProps {
   showNotification?: boolean;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
+  onCasedetails?: () => void;
+  onAccountUsers?: () => void;
   backgroundColor?: string;
   textColor?: string;
   iconColor?: string;
@@ -37,6 +39,8 @@ export default function Header({
   showNotification = true,
   onPaymentsPress,
   onMeetingsPress,
+  onCasedetails,
+  onAccountUsers,
   backgroundColor = "#ffffff",
   textColor = "#111827",
   iconColor = "#111827",
@@ -103,6 +107,19 @@ export default function Header({
     setIsSliderOpen(false);
     if (onMeetingsPress) {
       onMeetingsPress();
+    }
+  };
+
+  const handleCasedetails = () => {
+    setIsSliderOpen(false);
+    if (onCasedetails) {
+      onCasedetails();
+    }
+  };
+  const handleAccountUsers = () => {
+    setIsSliderOpen(false);
+    if (onAccountUsers) {
+      onAccountUsers();
     }
   };
 
@@ -224,6 +241,28 @@ export default function Header({
                 >
                   <Ionicons name="calendar-outline" size={24} color="#111827" />
                   <Text style={styles.menuText}>Meetings</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleCasedetails}
+                >
+                  <Ionicons
+                    name="file-tray-outline"
+                    size={24}
+                    color="#111827"
+                  />
+                  <Text style={styles.menuText}>Case Details</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handleAccountUsers}
+                >
+                  <Ionicons name="people-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Account Users</Text>
                   <Ionicons name="chevron-forward" size={20} color="#6b7280" />
                 </TouchableOpacity>
               </View>
