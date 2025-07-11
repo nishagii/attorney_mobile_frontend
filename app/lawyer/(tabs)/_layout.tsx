@@ -1,7 +1,7 @@
-import React from "react";
-import { Tabs } from "expo-router";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { View, Platform } from "react-native";
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform, View } from "react-native";
 
 //this layout is for the tabs
 
@@ -120,17 +120,6 @@ const _layout = () => {
               color={color}
               size={size}
             />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="payments"
-        options={{
-          title: "Payments",
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="card" size={size} color={color} />
           ),
         }}
       />

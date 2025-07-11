@@ -1,19 +1,43 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
+import { router } from "expo-router";
 import React, { useState } from "react";
+import {
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
+import NotificationPanel from "../(screens)/notifications";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
   const [currentMonth, setCurrentMonth] = useState("2025-06");
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
+  const handleNotificationPress = () => {
+    setShowNotifications(true);
+  };
+
+  const handleCloseNotifications = () => {
+    setShowNotifications(false);
+  };
+
+  const handleMarkAllRead = () => {
+    // Implement mark all as read logic here
+    setShowNotifications(false);
+    };
 
   // Sample time slots data for different dates
   const getTimeSlotsForDate = (date: string) => {
@@ -109,14 +133,20 @@ const CalendarScreen = () => {
         title="Case Calendar"
         showMenu={true}
         showNotification={true}
+        showNotificationBadge={true}
+        onNotificationPress={handleNotificationPress}
         onMenuPress={() => {
           // Handle menu press
           console.log("Menu pressed");
         }}
-        onNotificationPress={() => {
-          // Handle notification press
-          console.log("Notification pressed");
-        }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
+      />
+
+      <NotificationPanel
+        visible={showNotifications}
+        onClose={handleCloseNotifications}
+        onMarkAllRead={handleMarkAllRead}
       />
 
       <ScrollView style={{ flex: 1 }}>
