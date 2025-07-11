@@ -115,7 +115,7 @@ export default function Header({
     if (onCasedetails) {
       onCasedetails();
     }
-  }
+  };
   const handleAccountUsers = () => {
     setIsSliderOpen(false);
     if (onAccountUsers) {
@@ -248,7 +248,11 @@ export default function Header({
                   style={styles.menuItem}
                   onPress={handleCasedetails}
                 >
-                  <Ionicons name="file-tray-outline" size={24} color="#111827" />
+                  <Ionicons
+                    name="file-tray-outline"
+                    size={24}
+                    color="#111827"
+                  />
                   <Text style={styles.menuText}>Case Details</Text>
                   <Ionicons name="chevron-forward" size={20} color="#6b7280" />
                 </TouchableOpacity>

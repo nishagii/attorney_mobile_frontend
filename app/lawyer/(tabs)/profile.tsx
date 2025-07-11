@@ -1,17 +1,25 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
+import {
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 export default function ProfileScreen() {
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }}>
       <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
@@ -29,6 +37,8 @@ export default function ProfileScreen() {
           // Handle notification press
           console.log("Notification pressed");
         }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
       />
 
       <ScrollView style={{ flex: 1 }}>

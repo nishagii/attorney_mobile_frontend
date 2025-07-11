@@ -1,14 +1,14 @@
+import Header from "@/app/components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import Header from "@/app/components/Header";
 
 interface CaseItem {
   id: string;
@@ -23,6 +23,14 @@ interface CaseItem {
 
 const Cases = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
 
   // Sample case data - in real app, this would come from API
   const casesData: CaseItem[] = [
@@ -159,6 +167,8 @@ const Cases = () => {
           // Handle notification press
           console.log("Notification pressed");
         }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
       />
 
       {/* Search Bar */}
