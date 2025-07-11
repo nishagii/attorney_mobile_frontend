@@ -22,6 +22,10 @@ interface HeaderProps {
   showNotification?: boolean;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
+  backgroundColor?: string;
+  textColor?: string;
+  iconColor?: string;
+  showNotificationBadge?: boolean;
 }
 
 export default function Header({
@@ -32,6 +36,10 @@ export default function Header({
   showNotification = true,
   onPaymentsPress,
   onMeetingsPress,
+  backgroundColor = "#ffffff",
+  textColor = "#111827",
+  iconColor = "#111827",
+  showNotificationBadge = false,
 }: HeaderProps) {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
