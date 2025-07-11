@@ -5,10 +5,9 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
-  Platform,
 } from "react-native";
 import React, { useState } from "react";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons} from "@expo/vector-icons";
 import { router } from "expo-router";
 import { fonts } from "@/constants/fonts";
 import Header from "@/app/components/Header";
@@ -78,14 +77,6 @@ export default function Timeline() {
     console.log("Notification pressed");
   };
 
-  const handlePaymentsPress = () => {
-    router.push("/lawyer/(tabs)/payments");
-  };
-
-  const handleMeetingsPress = () => {
-    router.push("/lawyer/(tabs)/calendar");
-  };
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
@@ -124,8 +115,6 @@ export default function Timeline() {
         showNotificationBadge={true}
         onMenuPress={handleMenuPress}
         onNotificationPress={handleNotificationPress}
-        onPaymentsPress={handlePaymentsPress}
-        onMeetingsPress={handleMeetingsPress}
         backgroundColor="#111827"
         textColor="#ffffff"
         iconColor="#ffffff"
@@ -144,33 +133,6 @@ export default function Timeline() {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* Welcome Message */}
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              color: "#111827",
-              marginBottom: 4,
-              fontFamily: fonts.semiBold,
-            }}
-          >
-            Hello Thusitha, Welcome
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: "#6B7280",
-              marginBottom: 24,
-              fontFamily: fonts.regular,
-            }}
-          >
-            Today is: {new Date().toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "2-digit", 
-              day: "2-digit"
-            })}
-          </Text>
-
           {/* Time Line Section */}
           <Text
             style={{
@@ -562,119 +524,6 @@ export default function Timeline() {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-      </View>
-
-      {/* Bottom Navigation */}
-      <View
-        style={{
-          backgroundColor: "#ffffff",
-          borderTopWidth: 1,
-          borderTopColor: "#f3f4f6",
-          height: Platform.OS === "ios" ? 90 : 80,
-          paddingBottom: Platform.OS === "ios" ? 25 : 12,
-          paddingTop: 12,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 10,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        {/* Dashboard */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/dashboard")}
-        >
-          <MaterialIcons name="dashboard" size={24} color="#6b7280" />
-        </TouchableOpacity>
-
-        {/* Calendar */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/calendar")}
-        >
-          <Ionicons name="calendar" size={24} color="#6b7280" />
-        </TouchableOpacity>
-
-        {/* Cases */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/cases")}
-        >
-          <Ionicons name="briefcase" size={24} color="#6b7280" />
-        </TouchableOpacity>
-
-        {/* Search */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/search")}
-        >
-          <Ionicons name="search" size={24} color="#6b7280" />
-        </TouchableOpacity>
-
-        {/* Payments */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/payments")}
-        >
-          <Ionicons name="card" size={24} color="#6b7280" />
-        </TouchableOpacity>
-
-        {/* Profile */}
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            backgroundColor: "transparent",
-          }}
-          onPress={() => router.push("/lawyer/(tabs)/profile")}
-        >
-          <Ionicons name="person" size={24} color="#6b7280" />
-        </TouchableOpacity>
       </View>
     </View>
   );
