@@ -1,15 +1,15 @@
+import { fonts } from "@/constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-  Text,
-  View,
-  ScrollView,
-  Animated,
-  TouchableOpacity,
+    Animated,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { fonts } from "@/constants/fonts";
 import Header from "../../components/Header";
 import NotificationPanel from "../../lawyer/(screens)/notifications";
 
@@ -282,6 +282,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
+                onPress={() => router.push("/lawyer/(screens)/day-summary")}
               >
                 <View
                   style={{
@@ -710,6 +711,7 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
+                    onPress={() => router.push("/lawyer/(screens)/day-summary")}
                   >
                     <Animated.View
                       style={{
