@@ -14,14 +14,6 @@ import { fonts } from "@/constants/fonts";
 
 const { width } = Dimensions.get("window");
 
-interface Notification {
-  id: string;
-  type: 'message' | 'hearing' | 'payment' | 'document';
-  title: string;
-  time: string;
-  isRead?: boolean;
-}
-
 interface HeaderProps {
   title: string;
   onMenuPress?: () => void;
@@ -37,7 +29,6 @@ interface HeaderProps {
   iconColor?: string;
   borderColor?: string;
   showNotificationBadge?: boolean;
-  notifications?: Notification[];
 }
 
 export default function Header({
@@ -55,16 +46,11 @@ export default function Header({
   iconColor = "#111827",
   borderColor = "#e5e7eb",
   showNotificationBadge = false,
-  notifications = [],
 }: HeaderProps) {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
-  const [notificationModalVisible, setNotificationModalVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(-width * 0.8)).current;
   const blurAnim = useRef(new Animated.Value(0)).current;
-  const notificationDropdownAnim = useRef(new Animated.Value(0)).current;
-  const notificationOpacityAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (isSliderOpen) {
@@ -99,39 +85,6 @@ export default function Header({
     }
   }, [isSliderOpen, slideAnim, blurAnim]);
 
-  useEffect(() => {
-    if (isNotificationDropdownOpen) {
-      setNotificationModalVisible(true);
-      Animated.parallel([
-        Animated.timing(notificationDropdownAnim, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(notificationOpacityAnim, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    } else {
-      Animated.parallel([
-        Animated.timing(notificationDropdownAnim, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(notificationOpacityAnim, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start(() => {
-        setNotificationModalVisible(false);
-      });
-    }
-  }, [isNotificationDropdownOpen, notificationDropdownAnim, notificationOpacityAnim]);
-
   const handleMenuPress = () => {
     setIsSliderOpen(true);
     if (onMenuPress) {
@@ -157,74 +110,18 @@ export default function Header({
     }
   };
 
-  const handleNotificationPress = () => {
-    setIsNotificationDropdownOpen(true);
-    if (onNotificationPress) {
-      onNotificationPress();
+  const handleCasedetails = () => {
+    setIsSliderOpen(false);
+    if (onCasedetails) {
+      onCasedetails();
     }
   };
-
-  const handleCloseNotificationDropdown = () => {
-    setIsNotificationDropdownOpen(false);
-  };
-
-  const getNotificationIcon = (type: string) => {
-    switch (type) {
-      case 'message':
-        return 'mail-outline';
-      case 'hearing':
-        return 'calendar-outline';
-      case 'payment':
-        return 'card-outline';
-      case 'document':
-        return 'document-outline';
-      default:
-        return 'notifications-outline';
+  const handleAccountUsers = () => {
+    setIsSliderOpen(false);
+    if (onAccountUsers) {
+      onAccountUsers();
     }
   };
-
-  const formatDate = () => {
-    const today = new Date();
-    return `Today is ${today.toLocaleDateString('en-US', { 
-      month: '2-digit', 
-      day: '2-digit', 
-      year: 'numeric' 
-    })}`;
-  };
-
-  // Sample notifications data if none provided
-  const sampleNotifications: Notification[] = [
-    {
-      id: '1',
-      type: 'message',
-      title: 'New message from John Doe',
-      time: '10 minutes ago',
-      isRead: false,
-    },
-    {
-      id: '2',
-      type: 'hearing',
-      title: 'Upcoming hearing for Case #4323',
-      time: '1 hour ago',
-      isRead: false,
-    },
-    {
-      id: '3',
-      type: 'payment',
-      title: 'Payment received from Alice Johnson',
-      time: '3 hours ago',
-      isRead: true,
-    },
-    {
-      id: '4',
-      type: 'document',
-      title: 'Document uploaded for review',
-      time: 'Yesterday',
-      isRead: true,
-    },
-  ];
-
-  const displayNotifications = notifications.length > 0 ? notifications : sampleNotifications;
 
   return (
     <>
@@ -261,7 +158,7 @@ export default function Header({
 
         {showNotification ? (
           <TouchableOpacity
-            onPress={handleNotificationPress}
+            onPress={onNotificationPress}
             style={{ position: "relative" }}
           >
             <Ionicons
@@ -289,55 +186,54 @@ export default function Header({
       </View>
 
       {/* Slider Modal */}
-      {modalVisible && (
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={handleCloseSlider}
-        >
-          <View style={styles.modalContainer}>
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={handleCloseSlider}
+      >
+        <View style={styles.modalContainer}>
+          <Animated.View
+            style={[
+              styles.blurBackground,
+              {
+                opacity: blurAnim,
+              },
+            ]}
+          >
+            <BlurView
+              intensity={100}
+              tint="light"
+              style={StyleSheet.absoluteFillObject}
+            />
+            <View style={styles.gradientOverlay} />
+          </Animated.View>
+
+          <View style={styles.modalOverlay}>
             <Animated.View
               style={[
-                styles.blurBackground,
+                styles.sliderContainer,
                 {
-                  opacity: blurAnim,
+                  transform: [{ translateX: slideAnim }],
                 },
               ]}
             >
-              <BlurView
-                intensity={100}
-                tint="light"
-                style={StyleSheet.absoluteFillObject}
-              />
-              <View style={styles.gradientOverlay} />
-            </Animated.View>
+              <View style={styles.sliderHeader}>
+                <Text style={styles.sliderTitle}>Menu</Text>
+                <TouchableOpacity onPress={handleCloseSlider}>
+                  <Ionicons name="close-outline" size={24} color="#111827" />
+                </TouchableOpacity>
+              </View>
 
-            <View style={styles.modalOverlay}>
-              <Animated.View
-                style={[
-                  styles.sliderContainer,
-                  {
-                    transform: [{ translateX: slideAnim }],
-                  },
-                ]}
-              >
-                <View style={styles.sliderHeader}>
-                  <Text style={styles.sliderTitle}>Menu</Text>
-                  <TouchableOpacity onPress={handleCloseSlider}>
-                    <Ionicons name="close-outline" size={24} color="#111827" />
-                  </TouchableOpacity>
-                </View>
-
-                <View style={styles.menuItems}>
-                  <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={handlePaymentsPress}
-                  >
-                    <Ionicons name="card-outline" size={24} color="#111827" />
-                    <Text style={styles.menuText}>Payments</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#6b7280" />
-                  </TouchableOpacity>
+              <View style={styles.menuItems}>
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={handlePaymentsPress}
+                >
+                  <Ionicons name="card-outline" size={24} color="#111827" />
+                  <Text style={styles.menuText}>Payments</Text>
+                  <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.menuItem}
@@ -352,7 +248,11 @@ export default function Header({
                   style={styles.menuItem}
                   onPress={handleCasedetails}
                 >
-                  <Ionicons name="file-tray-outline" size={24} color="#111827" />
+                  <Ionicons
+                    name="file-tray-outline"
+                    size={24}
+                    color="#111827"
+                  />
                   <Text style={styles.menuText}>Case Details</Text>
                   <Ionicons name="chevron-forward" size={20} color="#6b7280" />
                 </TouchableOpacity>
@@ -459,126 +359,5 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     flex: 1,
     fontFamily: fonts.medium,
-  },
-  // Notification dropdown styles
-  dropdownBackdrop: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
-  },
-  dropdownContainer: {
-    position: "absolute",
-    top: 80, // Adjust based on header height
-    right: 20,
-    zIndex: 1000,
-  },
-  notificationDropdown: {
-    width: 350,
-    maxHeight: 500,
-    backgroundColor: "#ffffff",
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 20,
-    elevation: 10,
-    borderWidth: 1,
-    borderColor: "#e5e7eb",
-  },
-  notificationHeader: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f3f4f6",
-  },
-  notificationHeaderTop: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  dateText: {
-    fontSize: 12,
-    color: "#6B7280",
-    fontFamily: fonts.medium,
-  },
-  notificationHeaderBottom: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  notificationTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#111827",
-    fontFamily: fonts.semiBold,
-  },
-  markAllReadButton: {
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-  },
-  markAllReadText: {
-    fontSize: 12,
-    color: "#3B82F6",
-    fontFamily: fonts.medium,
-  },
-  notificationsList: {
-    maxHeight: 400,
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-  },
-  notificationItem: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    backgroundColor: "#ffffff",
-    borderRadius: 8,
-    marginBottom: 4,
-    borderWidth: 1,
-    borderColor: "transparent",
-  },
-  unreadNotification: {
-    backgroundColor: "#f8fafc",
-    borderColor: "#e0f2fe",
-  },
-  notificationIconContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: "#f3f4f6",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 12,
-    position: "relative",
-  },
-  unreadDot: {
-    position: "absolute",
-    top: 1,
-    right: 1,
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: "#3B82F6",
-  },
-  notificationContent: {
-    flex: 1,
-    paddingTop: 1,
-  },
-  notificationText: {
-    fontSize: 14,
-    color: "#374151",
-    fontFamily: fonts.medium,
-    lineHeight: 18,
-    marginBottom: 2,
-  },
-  unreadText: {
-    color: "#111827",
-    fontWeight: "600",
-  },
-  notificationTime: {
-    fontSize: 12,
-    color: "#6B7280",
-    fontFamily: fonts.regular,
   },
 });
