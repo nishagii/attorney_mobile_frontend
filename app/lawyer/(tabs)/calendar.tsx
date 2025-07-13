@@ -1,12 +1,43 @@
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import Header from "@/app/components/Header";
+import { fonts } from "@/constants/fonts";
+import { router } from "expo-router";
 import React, { useState } from "react";
+import {
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { fonts } from "@/constants/fonts";
+import NotificationPanel from "../(screens)/notifications";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
   const [currentMonth, setCurrentMonth] = useState("2025-06");
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const handlePaymentsPress = () => {
+    router.push("/lawyer/(screens)/payments");
+  };
+
+  const handleMeetingsPress = () => {
+    router.push("/lawyer/(tabs)/calendar");
+  };
+
+  const handleNotificationPress = () => {
+    setShowNotifications(true);
+  };
+
+  const handleCloseNotifications = () => {
+    setShowNotifications(false);
+  };
+
+  const handleMarkAllRead = () => {
+    // Implement mark all as read logic here
+    setShowNotifications(false);
+    };
 
   // Sample time slots data for different dates
   const getTimeSlotsForDate = (date: string) => {
@@ -94,28 +125,87 @@ const CalendarScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100">
-      <ScrollView className="flex-1 px-4 pt-6">
-        {/* Header with selected date */}
-        <Text
-          className="text-2xl text-gray-800 mb-6"
-          style={{ fontFamily: fonts.semiBold }}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
+
+      {/* Header */}
+      <Header
+        title="Case Calendar"
+        showMenu={true}
+        showNotification={true}
+        showNotificationBadge={true}
+        onNotificationPress={handleNotificationPress}
+        onMenuPress={() => {
+          // Handle menu press
+          console.log("Menu pressed");
+        }}
+        onPaymentsPress={handlePaymentsPress}
+        onMeetingsPress={handleMeetingsPress}
+      />
+
+      <NotificationPanel
+        visible={showNotifications}
+        onClose={handleCloseNotifications}
+        onMarkAllRead={handleMarkAllRead}
+      />
+
+      <ScrollView style={{ flex: 1 }}>
+        {/* Selected Date Section */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            marginTop: 20,
+            borderRadius: 16,
+            padding: 24,
+          }}
         >
-          {formatSelectedDate(selectedDate)}
-        </Text>
-
-        {/* Add Hearing Button */}
-        <TouchableOpacity className="bg-black rounded-xl py-4 mb-6">
           <Text
-            className="text-white text-center text-lg"
-            style={{ fontFamily: fonts.medium }}
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+              color: "#111827",
+              marginBottom: 16,
+              fontFamily: fonts.semiBold,
+            }}
           >
-            + Add Hearing
+            {formatSelectedDate(selectedDate)}
           </Text>
-        </TouchableOpacity>
 
-        {/* Calendar */}
-        <View className="mb-8">
+          {/* Add Hearing Button */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#111827",
+              borderRadius: 12,
+              paddingVertical: 16,
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "#ffffff",
+                fontSize: 16,
+                fontWeight: "500",
+                fontFamily: fonts.medium,
+              }}
+            >
+              + Add Hearing
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Calendar Section */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            marginTop: 16,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#e5e7eb",
+            overflow: "hidden",
+          }}
+        >
           <Calendar
             current={currentMonth}
             onDayPress={(day) => {
@@ -128,18 +218,17 @@ const CalendarScreen = () => {
             theme={{
               backgroundColor: "#ffffff",
               calendarBackground: "#ffffff",
-              textSectionTitleColor: "#666666",
-              selectedDayBackgroundColor: "#FFA500",
+              textSectionTitleColor: "#6b7280",
+              selectedDayBackgroundColor: "#FF8800",
               selectedDayTextColor: "#ffffff",
-              todayTextColor: "#FFA500",
-              dayTextColor: "#2d4150",
-              textDisabledColor: "#d9e1e8",
-              dotColor: "#FFA500",
+              dayTextColor: "#111827",
+              textDisabledColor: "#d1d5db",
+              dotColor: "#FF8800",
               selectedDotColor: "#ffffff",
-              arrowColor: "#666666",
-              disabledArrowColor: "#d9e1e8",
-              monthTextColor: "#2d4150",
-              indicatorColor: "#FFA500",
+              arrowColor: "#6b7280",
+              disabledArrowColor: "#d1d5db",
+              monthTextColor: "#111827",
+              indicatorColor: "#FF8800",
               textDayFontFamily: fonts.medium,
               textMonthFontFamily: fonts.semiBold,
               textDayHeaderFontFamily: fonts.medium,
@@ -151,60 +240,105 @@ const CalendarScreen = () => {
               textDayHeaderFontSize: 14,
             }}
             style={{
-              borderRadius: 12,
-              elevation: 2,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.1,
-              shadowRadius: 2,
+              paddingBottom: 16,
             }}
           />
         </View>
 
-        {/* Dynamic Time Slots Section */}
-        <View className="mb-6">
-          <Text
-            className="text-xl text-gray-800 mb-4"
-            style={{ fontFamily: fonts.semiBold }}
+        {/* Time Slots Section */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            marginTop: 16,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#e5e7eb",
+          }}
+        >
+          <View
+            style={{
+              paddingHorizontal: 20,
+              paddingTop: 20,
+              paddingBottom: 12,
+              borderBottomWidth: 1,
+              borderBottomColor: "#f3f4f6",
+            }}
           >
-            Time Slots for {formatSelectedDate(selectedDate).split(" of ")[0]}
-          </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "600",
+                color: "#111827",
+                fontFamily: fonts.semiBold,
+              }}
+            >
+              Time Slots for {formatSelectedDate(selectedDate).split(" of ")[0]}
+            </Text>
+          </View>
 
-          {/* Time Slots */}
-          <View className="space-y-4">
+          {/* Time Slots List */}
+          <View style={{ padding: 20 }}>
             {timeSlots.map((slot, index) => (
-              <View key={index} className="flex-row items-center mb-4">
+              <View
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 16,
+                  borderBottomWidth: index < timeSlots.length - 1 ? 1 : 0,
+                  borderBottomColor: "#f3f4f6",
+                }}
+              >
                 <View
-                  className={`w-3 h-3 rounded-full mr-4 ${
-                    slot.status === "available" ? "bg-green-400" : "bg-red-400"
-                  }`}
-                ></View>
-                <View className="flex-1">
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: 6,
+                    backgroundColor:
+                      slot.status === "available" ? "#10b981" : "#ef4444",
+                    marginRight: 16,
+                  }}
+                />
+                <View style={{ flex: 1 }}>
                   <Text
-                    className="text-lg text-gray-800"
-                    style={{ fontFamily: fonts.semiBold }}
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "500",
+                      color: "#111827",
+                      marginBottom: 4,
+                      fontFamily: fonts.medium,
+                    }}
                   >
                     {slot.time}
                   </Text>
                   <Text
-                    className={`text-sm ${
-                      slot.status === "available"
-                        ? "text-green-500"
-                        : "text-red-500"
-                    }`}
-                    style={{ fontFamily: fonts.regular }}
+                    style={{
+                      fontSize: 14,
+                      color:
+                        slot.status === "available" ? "#10b981" : "#ef4444",
+                      fontFamily: fonts.regular,
+                    }}
                   >
                     {slot.status === "available" ? "Available" : slot.details}
                   </Text>
                 </View>
                 {slot.status === "available" && (
-                  <TouchableOpacity className="bg-blue-500 rounded-lg px-4 py-2">
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#111827",
+                      borderRadius: 8,
+                      paddingHorizontal: 16,
+                      paddingVertical: 8,
+                    }}
+                  >
                     <Text
-                      className="text-white text-sm"
-                      style={{ fontFamily: fonts.medium }}
+                      style={{
+                        color: "#ffffff",
+                        fontSize: 14,
+                        fontWeight: "500",
+                        fontFamily: fonts.medium,
+                      }}
                     >
                       Book
                     </Text>
@@ -212,20 +346,27 @@ const CalendarScreen = () => {
                 )}
               </View>
             ))}
-          </View>
 
-          {/* Empty state when no slots */}
-          {timeSlots.length === 0 && (
-            <View className="bg-white rounded-lg p-6 items-center">
-              <Text
-                className="text-gray-500 text-center"
-                style={{ fontFamily: fonts.regular }}
-              >
-                No time slots available for this date
-              </Text>
-            </View>
-          )}
+            {/* Empty state when no slots */}
+            {timeSlots.length === 0 && (
+              <View style={{ alignItems: "center", paddingVertical: 32 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "#6b7280",
+                    textAlign: "center",
+                    fontFamily: fonts.regular,
+                  }}
+                >
+                  No time slots available for this date
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
+
+        {/* Bottom spacing */}
+        <View style={{ height: 32 }} />
       </ScrollView>
     </SafeAreaView>
   );

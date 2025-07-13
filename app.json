@@ -4,7 +4,7 @@
     "slug": "attorney",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/mini_black.png",
+    "icon": "./assets/icons/logo.png",
     "scheme": "attorney",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/mini_black.png",
+        "foregroundImage": "./assets/icons/logo.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
@@ -39,6 +39,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "0c96e117-7092-43b3-b1cb-674901d65c5e"
+      }
     }
   }
 }
