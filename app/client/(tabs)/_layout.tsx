@@ -1,7 +1,7 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform, View, Animated } from "react-native";
+import { Animated, Platform } from "react-native";
 
 //this layout is for the client tabs
 
