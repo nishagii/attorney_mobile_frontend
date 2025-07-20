@@ -58,17 +58,20 @@ export default function Incomes() {
     { id: "12", date: "2025-05-06", name: "Mr Lathmuni" },
   ];
 
-  const totalIncome = paidCustomers.reduce((sum, customer) => sum + (customer.amount || 0), 0);
+  const totalIncome = paidCustomers.reduce(
+    (sum, customer) => sum + (customer.amount || 0),
+    0
+  );
 
   const handleBackPress = () => {
     router.back();
   };
 
   // Responsive design calculations (like day summary)
-  const screenWidth = Dimensions.get('window').width;
+  const screenWidth = Dimensions.get("window").width;
   const isSmallScreen = screenWidth < 375;
   const isMediumScreen = screenWidth >= 375 && screenWidth < 414;
-  
+
   const cardPadding = isSmallScreen ? 16 : isMediumScreen ? 20 : 24;
   const horizontalPadding = isSmallScreen ? 20 : isMediumScreen ? 24 : 32;
 
@@ -118,7 +121,9 @@ export default function Incomes() {
         </View>
 
         {/* Incomes Section */}
-        <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}>
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
+        >
           <Text
             style={{
               fontSize: isSmallScreen ? 18 : 20,
@@ -155,7 +160,9 @@ export default function Incomes() {
             >
               <Picker
                 selectedValue={selectedYear}
-                onValueChange={(itemValue: string) => setSelectedYear(itemValue)}
+                onValueChange={(itemValue: string) =>
+                  setSelectedYear(itemValue)
+                }
                 style={{ height: 50 }}
               >
                 <Picker.Item label="2023" value="2023" />
@@ -181,12 +188,24 @@ export default function Incomes() {
             >
               <Picker
                 selectedValue={selectedMonth}
-                onValueChange={(itemValue: string) => setSelectedMonth(itemValue)}
+                onValueChange={(itemValue: string) =>
+                  setSelectedMonth(itemValue)
+                }
                 style={{ height: 50 }}
               >
                 {[
-                  "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
                 ].map((month) => (
                   <Picker.Item key={month} label={month} value={month} />
                 ))}
@@ -248,7 +267,7 @@ export default function Incomes() {
 
             <LineChart
               data={chartData}
-              width={width - (horizontalPadding * 2) - (cardPadding * 2)}
+              width={width - horizontalPadding * 2 - cardPadding * 2}
               height={220}
               chartConfig={{
                 backgroundColor: "#ffffff",
@@ -275,7 +294,9 @@ export default function Incomes() {
         </View>
 
         {/* Paid Customers Section */}
-        <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}>
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
+        >
           <Text
             style={{
               fontSize: isSmallScreen ? 16 : 18,
@@ -337,7 +358,9 @@ export default function Incomes() {
         </View>
 
         {/* Unpaid Customers Section */}
-        <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}>
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
+        >
           <Text
             style={{
               fontSize: isSmallScreen ? 16 : 18,
@@ -396,7 +419,9 @@ export default function Incomes() {
         </View>
 
         {/* Total Income Section */}
-        <View style={{ paddingHorizontal: horizontalPadding, marginBottom: 40 }}>
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 40 }}
+        >
           <Text
             style={{
               fontSize: isSmallScreen ? 16 : 18,
