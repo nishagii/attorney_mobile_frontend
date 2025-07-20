@@ -159,6 +159,7 @@ const Cases = () => {
         title="Case Profiles"
         showMenu={true}
         showNotification={true}
+        showNotificationBadge={true}
         onMenuPress={() => {
           // Handle menu press
           console.log("Menu pressed");
@@ -176,7 +177,7 @@ const Cases = () => {
         <View
           className="flex-row items-center rounded-lg px-4 py-3"
           style={{
-            backgroundColor: "rgba(255, 136, 0, 0.1)", // #ff8800 with 10% opacity
+            backgroundColor: "rgba(207, 207, 207, 0.1)", 
           }}
         >
           <Ionicons
