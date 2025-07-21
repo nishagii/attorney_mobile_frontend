@@ -1,19 +1,21 @@
 import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-    Animated,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  Animated,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Header from "../../components/Header";
 import NotificationPanel from "../../lawyer/(screens)/notifications";
 
 export default function Dashboard() {
+  const router = useRouter();
+
   const scrollY = useRef(new Animated.Value(0)).current;
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -54,12 +56,16 @@ export default function Dashboard() {
         iconColor="#fff"
         borderColor="#111827"
         showNotificationBadge={true}
-        onMenuPress={() => {}}
+        onMenuPress={() => {
+          // Handle menu press
+          console.log("Menu pressed");
+        }}
+        router={router}
         onNotificationPress={handleNotificationPress}
-        onPaymentsPress={() => router.push("/lawyer/(drawer)/payments")}
-        onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
+        onPaymentsPress={() => router.push("/lawyer/(screens)/payments")}
+        onMeetingsPress={() => router.push("/lawyer/(screens)/meetings")}
         onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
-        onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
+        onAccountUsers={() => router.push("/lawyer/(screens)/account-users")}
       />
       <NotificationPanel
         visible={showNotifications}
@@ -1277,7 +1283,6 @@ export default function Dashboard() {
                 </View>
               </View>
             </View>
-
 
             {/* Monthly Income */}
             <View style={{ paddingHorizontal: 20, marginTop: 24 }}>
