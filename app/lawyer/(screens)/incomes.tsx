@@ -83,57 +83,11 @@ export default function Incomes() {
       {/* Main Content */}
       <ScrollView style={{ flex: 1 }}>
         {/* Hero Section */}
-        <View
-          style={{
-            paddingHorizontal: horizontalPadding,
-            paddingTop: isSmallScreen ? 40 : 32,
-            paddingBottom: 24,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: isSmallScreen ? 24 : 28,
-              fontFamily: fonts.bold,
-              color: "#000000",
-              marginBottom: 8,
-              textAlign: "left",
-            }}
-          >
-            Hello Thusitha, Welcome!
-          </Text>
-
-          <Text
-            style={{
-              fontSize: isSmallScreen ? 14 : 16,
-              fontFamily: fonts.regular,
-              color: "#6b7280",
-              textAlign: "left",
-              lineHeight: isSmallScreen ? 20 : 24,
-            }}
-          >
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </Text>
-        </View>
-
         {/* Incomes Section */}
         <View
           style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
         >
-          <Text
-            style={{
-              fontSize: isSmallScreen ? 18 : 20,
-              fontFamily: fonts.bold,
-              color: "#000000",
-              marginBottom: 20,
-            }}
-          >
-            Incomes
-          </Text>
+         
 
           {/* Year and Month Selection */}
           <View

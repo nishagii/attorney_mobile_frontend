@@ -12,6 +12,7 @@ import {
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NotificationPanel from "../(screens)/notifications";
+import { useRouter } from "expo-router";
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState("2025-06-21");
@@ -174,6 +175,7 @@ const CalendarScreen = () => {
 
           {/* Add Hearing Button */}
           <TouchableOpacity
+            onPress={() => router.push("/lawyer/(screens)/add-hearing")}
             style={{
               backgroundColor: "#111827",
               borderRadius: 12,
