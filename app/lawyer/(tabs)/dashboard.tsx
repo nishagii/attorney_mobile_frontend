@@ -829,13 +829,24 @@ export default function Dashboard() {
             {/* Spacer for floating cards */}
             <View style={{ height: 250 }} />
 
-            {/* Action Cards Grid - 2x3 Layout */}
+            {/* Practice Statistics */}
             <View
               style={{
                 paddingHorizontal: 20,
                 paddingBottom: 32,
               }}
             >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  marginBottom: 16,
+                  color: "#323D68",
+                  fontFamily: fonts.semiBold,
+                }}
+              >
+                Practice Statistics
+              </Text>
               {/* First Row */}
               <View
                 style={{
@@ -854,6 +865,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/all-messages")}
                 >
                   <View
                     style={{
@@ -866,11 +878,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="arrow-up-outline"
-                      size={24}
-                      color="#1976D2"
-                    />
+                    <Ionicons name="people-outline" size={24} color="#1976D2" />
                   </View>
                   <Text
                     style={{
@@ -881,7 +889,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Due Payments
+                    Clients
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#1976D2",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    42
                   </Text>
                 </TouchableOpacity>
 
@@ -895,6 +915,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(tabs)/cases")}
                 >
                   <View
                     style={{
@@ -907,7 +928,11 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="cash-outline" size={24} color="#2E7D32" />
+                    <Ionicons
+                      name="briefcase-outline"
+                      size={24}
+                      color="#2E7D32"
+                    />
                   </View>
                   <Text
                     style={{
@@ -918,7 +943,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Send Money
+                    Active Cases
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#2E7D32",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    24
                   </Text>
                 </TouchableOpacity>
 
@@ -932,6 +969,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/account-users")}
                 >
                   <View
                     style={{
@@ -944,11 +982,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="swap-horizontal-outline"
-                      size={24}
-                      color="#FF8800"
-                    />
+                    <Ionicons name="person-outline" size={24} color="#FF8800" />
                   </View>
                   <Text
                     style={{
@@ -959,7 +993,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Transfer
+                    Junior Staff
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#FF8800",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    5
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -981,6 +1027,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/meetings")}
                 >
                   <View
                     style={{
@@ -994,7 +1041,7 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="phone-portrait-outline"
+                      name="calendar-outline"
                       size={24}
                       color="#D32F2F"
                     />
@@ -1008,7 +1055,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Mobile Cases
+                    Hearings Today
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#D32F2F",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    3
                   </Text>
                 </TouchableOpacity>
 
@@ -1022,6 +1081,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/payments")}
                 >
                   <View
                     style={{
@@ -1034,11 +1094,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="document-text-outline"
-                      size={24}
-                      color="#7B1FA2"
-                    />
+                    <Ionicons name="cash-outline" size={24} color="#7B1FA2" />
                   </View>
                   <Text
                     style={{
@@ -1049,7 +1105,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Bill Payment
+                    Pending Bills
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#7B1FA2",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    $12,500
                   </Text>
                 </TouchableOpacity>
 
@@ -1063,6 +1131,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/day-summary")}
                 >
                   <View
                     style={{
@@ -1075,7 +1144,11 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="card-outline" size={24} color="#689F38" />
+                    <Ionicons
+                      name="stats-chart-outline"
+                      size={24}
+                      color="#689F38"
+                    />
                   </View>
                   <Text
                     style={{
@@ -1086,7 +1159,19 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Analytics
+                    Success Rate
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#689F38",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      fontFamily: fonts.semiBold,
+                      marginTop: 4,
+                    }}
+                  >
+                    86%
                   </Text>
                 </TouchableOpacity>
               </View>
