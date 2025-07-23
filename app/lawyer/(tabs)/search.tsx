@@ -442,12 +442,6 @@ const Search = () => {
               placeholderTextColor="#6b7280"
             />
           </View>
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => router.push("/case/new")}
-          >
-            <Text style={styles.addButtonText}>+ Add Case</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Tabs and Filter */}
