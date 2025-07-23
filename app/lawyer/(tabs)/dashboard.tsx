@@ -1,15 +1,15 @@
+import { fonts } from "@/constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-  Text,
-  View,
-  ScrollView,
-  Animated,
-  TouchableOpacity,
+    Animated,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { fonts } from "@/constants/fonts";
 import Header from "../../components/Header";
 import NotificationPanel from "../../lawyer/(screens)/notifications";
 
@@ -282,6 +282,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
+                onPress={() => router.push("/lawyer/(screens)/day-summary")}
               >
                 <View
                   style={{
@@ -598,7 +599,9 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
-                    onPress={() => router.push("/lawyer/(screens)/incomes" as any)}
+                    onPress={() =>
+                      router.push("/lawyer/(screens)/incomes" as any)
+                    }
                   >
                     <Animated.View
                       style={{
@@ -710,6 +713,7 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
+                    onPress={() => router.push("/lawyer/(screens)/day-summary")}
                   >
                     <Animated.View
                       style={{
@@ -1082,126 +1086,6 @@ export default function Dashboard() {
               </View>
             </View>
 
-            {/* Account Summary Cards */}
-            <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  padding: 20,
-                  marginBottom: 16,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{
-                      backgroundColor: "#FF8800",
-                      width: 48,
-                      height: 48,
-                      borderRadius: 12,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 16,
-                    }}
-                  >
-                    <Ionicons name="person-outline" size={24} color="white" />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "600",
-                        color: "#323D68",
-                        fontFamily: fonts.semiBold,
-                      }}
-                    >
-                      Accounts
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "#5E788F",
-                        fontFamily: fonts.regular,
-                      }}
-                    >
-                      Total Account Balance
-                    </Text>
-                  </View>
-                </View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#323D68",
-                    fontFamily: fonts.semiBold,
-                  }}
-                >
-                  $8,750.24
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  padding: 20,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{
-                      backgroundColor: "#D32F2F",
-                      width: 48,
-                      height: 48,
-                      borderRadius: 12,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 16,
-                    }}
-                  >
-                    <Ionicons name="card-outline" size={24} color="white" />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "600",
-                        color: "#323D68",
-                        fontFamily: fonts.semiBold,
-                      }}
-                    >
-                      Cases
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "#5E788F",
-                        fontFamily: fonts.regular,
-                      }}
-                    >
-                      Total Case Balance
-                    </Text>
-                  </View>
-                </View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#323D68",
-                    fontFamily: fonts.semiBold,
-                  }}
-                >
-                  $2,500.00
-                </Text>
-              </TouchableOpacity>
-            </View>
-
             {/* Hearings Section */}
             <View style={{ paddingHorizontal: 20, marginTop: 24 }}>
               <Text
@@ -1393,6 +1277,7 @@ export default function Dashboard() {
                 </View>
               </View>
             </View>
+
 
             {/* Monthly Income */}
             <View style={{ paddingHorizontal: 20, marginTop: 24 }}>

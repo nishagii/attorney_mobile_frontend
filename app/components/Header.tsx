@@ -41,9 +41,9 @@ export default function Header({
   onMeetingsPress,
   onCasedetails,
   onAccountUsers,
-  backgroundColor = "#ffffff",
-  textColor = "#111827",
-  iconColor = "#111827",
+  backgroundColor = "#111827",
+  textColor = "#ffffff",
+  iconColor = "#ffffff",
   borderColor = "#e5e7eb",
   showNotificationBadge = false,
 }: HeaderProps) {
