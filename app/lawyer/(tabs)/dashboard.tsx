@@ -844,6 +844,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/clients")}
                 >
                   <View
                     style={{
@@ -857,7 +858,7 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="arrow-up-outline"
+                      name="people-outline"
                       size={24}
                       color="#1976D2"
                     />
@@ -871,7 +872,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Due Payments
+                    Client Details
                   </Text>
                 </TouchableOpacity>
 
