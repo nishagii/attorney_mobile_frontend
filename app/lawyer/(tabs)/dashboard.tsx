@@ -886,6 +886,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/addclient")}
                 >
                   <View
                     style={{
@@ -898,7 +899,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="cash-outline" size={24} color="#2E7D32" />
+                    <Ionicons name="person-add-outline" size={24} color="#2E7D32" />
                   </View>
                   <Text
                     style={{
@@ -909,7 +910,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Send Money
+                    Add Client
                   </Text>
                 </TouchableOpacity>
 
