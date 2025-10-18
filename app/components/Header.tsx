@@ -1,10 +1,10 @@
 
-import React, { useState, useRef, useEffect } from "react";
-import { Dimensions, View, Text, TouchableOpacity, Modal, StyleSheet, Animated } from "react-native";
-import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router"; // useNavigation import removed as it's not used
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 
