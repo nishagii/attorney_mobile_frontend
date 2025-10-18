@@ -20,6 +20,8 @@ interface HeaderProps {
   onNotificationPress?: () => void;
   showMenu?: boolean;
   showNotification?: boolean;
+  showBack?: boolean;
+  onBackPress?: () => void;
   onPaymentsPress?: () => void;
   onMeetingsPress?: () => void;
   onCasedetails?: () => void;
@@ -37,6 +39,8 @@ export default function Header({
   onNotificationPress,
   showMenu = false,
   showNotification = true,
+  showBack = false,
+  onBackPress,
   onPaymentsPress,
   onMeetingsPress,
   onCasedetails,
@@ -137,7 +141,11 @@ export default function Header({
           borderBottomColor: borderColor,
         }}
       >
-        {showMenu ? (
+        {showBack ? (
+          <TouchableOpacity onPress={onBackPress}>
+            <Ionicons name="arrow-back-outline" size={24} color={iconColor} />
+          </TouchableOpacity>
+        ) : showMenu ? (
           <TouchableOpacity onPress={handleMenuPress}>
             <Ionicons name="menu-outline" size={24} color={iconColor} />
           </TouchableOpacity>
