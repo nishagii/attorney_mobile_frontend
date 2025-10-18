@@ -975,10 +975,11 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/schedulemeeting" as any)}
                 >
                   <View
                     style={{
-                      backgroundColor: "#FFEBEE",
+                      backgroundColor: "#E8F5E8",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -988,9 +989,9 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="phone-portrait-outline"
+                      name="calendar-outline"
                       size={24}
-                      color="#D32F2F"
+                      color="#2E7D32"
                     />
                   </View>
                   <Text
@@ -1002,7 +1003,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Mobile Cases
+                    Schedule Meeting
                   </Text>
                 </TouchableOpacity>
 
