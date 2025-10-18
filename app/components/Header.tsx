@@ -1,9 +1,10 @@
-import { fonts } from "@/constants/fonts";
-import { Ionicons } from "@expo/vector-icons";
+
+import React, { useState, useRef, useEffect } from "react";
+import { Dimensions, View, Text, TouchableOpacity, Modal, StyleSheet, Animated } from "react-native";
 import { BlurView } from "expo-blur";
-import { useRouter } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
-import { Animated, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { fonts } from "@/constants/fonts";
+import { useRouter } from "expo-router"; // useNavigation import removed as it's not used
 
 const { width } = Dimensions.get("window");
 
@@ -24,7 +25,7 @@ interface HeaderProps {
   iconColor?: string;
   borderColor?: string;
   showNotificationBadge?: boolean;
-  router?: ReturnType<typeof useRouter>; // Optional router; falls back to useRouter()
+  router: ReturnType<typeof useRouter>; // Type for the router object from expo-router
 }
 
 export default function Header({
@@ -44,7 +45,7 @@ export default function Header({
   iconColor = "#ffffff",
   borderColor = "#e5e7eb",
   showNotificationBadge = false,
-  router, // Optional: can be passed from parent, otherwise we'll create one
+  router, // Destructure the router prop
 }: HeaderProps) {
   const internalRouter = router ?? useRouter();
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -105,7 +106,7 @@ export default function Header({
         onPaymentsPress();
       } else {
         console.log("Using default payments navigation");
-        internalRouter.push("/lawyer/(screens)/payments");
+        router.push("/lawyer/(screens)/payments");
       }
     } catch (error) {
       console.error("Error navigating to payments:", error);
@@ -120,8 +121,8 @@ export default function Header({
         console.log("Using custom meetings handler");
         onMeetingsPress();
       } else {
-  console.log("Using default meetings navigation");
-  internalRouter.push("/lawyer/(tabs)/calendar");
+        console.log("Using default meetings navigation");
+        router.push("/lawyer/(screens)/meetings" as any);
       }
     } catch (error) {
       console.error("Error navigating to meetings:", error);
@@ -133,7 +134,7 @@ export default function Header({
     if (onCasedetails) {
       onCasedetails();
     } else {
-      internalRouter.push("/lawyer/(tabs)/cases");
+      router.push("/lawyer/(tabs)/cases");
     }
   };
 
@@ -142,7 +143,7 @@ export default function Header({
     if (onAccountUsers) {
       onAccountUsers();
     } else {
-      internalRouter.push("/lawyer/(tabs)/profile");
+      router.push("/lawyer/(screens)/account-users" as any);
     }
   };
 

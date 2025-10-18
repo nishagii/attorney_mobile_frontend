@@ -128,7 +128,7 @@ const Cases = () => {
 
       <View className="flex-row space-x-3">
         <TouchableOpacity
-          className="flex-1 bg-black rounded-lg py-3"
+          className="flex-1 bg-[#111827] rounded-lg py-3"
           onPress={() => {
             // Handle close case action
             console.log("Close case:", caseItem.id);
@@ -159,6 +159,7 @@ const Cases = () => {
         title="Case Profiles"
         showMenu={true}
         showNotification={true}
+        showNotificationBadge={true}
         onMenuPress={() => {
           // Handle menu press
           console.log("Menu pressed");
@@ -171,12 +172,24 @@ const Cases = () => {
         onMeetingsPress={handleMeetingsPress}
       />
 
+      <View className="px-5 py-4 bg-white shadow-sm items-end">
+        <TouchableOpacity
+          className="flex-row items-center justify-between bg-[#111827] rounded-lg px-4 py-2 w-1/3 "
+          onPress={() => router.push("/lawyer/(screens)/add-case")}
+        >
+          <Text className="text-white text-sm text-base font-medium">
+            New Case
+          </Text>
+          <Ionicons name="add-circle-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
       {/* Search Bar */}
       <View className="px-5 py-4 bg-gray-50">
         <View
           className="flex-row items-center rounded-lg px-4 py-3"
           style={{
-            backgroundColor: "rgba(255, 136, 0, 0.1)", // #ff8800 with 10% opacity
+            backgroundColor: "rgba(207, 207, 207, 0.1)",
           }}
         >
           <Ionicons

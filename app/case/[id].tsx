@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, router } from "expo-router";
 import { fonts } from "@/constants/fonts";
+import SimpleHeader from "../components/SimpleHeader";
 
 const CaseDetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -187,29 +188,29 @@ const CaseDetailScreen = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#f9fafb" />
 
       {/* Header */}
+      <SimpleHeader
+        title={`Case No. ${caseData.caseNumber}`}
+        borderColor="#e5e7eb"
+        showBorder={true}
+      />
+
+      {/* Subtitle */}
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
           paddingHorizontal: 20,
           paddingVertical: 16,
-          backgroundColor: "#ffffff",
-          borderBottomWidth: 1,
-          borderBottomColor: "#e5e7eb",
+          backgroundColor: "#f9fafb",
         }}
       >
-        <TouchableOpacity onPress={() => router.back()} className="mr-4">
-          <Ionicons name="arrow-back" size={24} color="#111827" />
-        </TouchableOpacity>
         <Text
           style={{
-            fontSize: 18,
-            fontWeight: "600",
-            color: "#111827",
-            fontFamily: fonts.semiBold,
+            fontSize: 16,
+            fontFamily: fonts.medium,
+            color: "#6b7280",
+            textAlign: "center",
           }}
         >
-          Case No. {caseData.caseNumber}
+          All the details related to case can be found below
         </Text>
       </View>
 
@@ -223,12 +224,311 @@ const CaseDetailScreen = () => {
           }
         }}
       >
+        {/* Case Progress Timeline */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            borderRadius: 16,
+            padding: 20,
+            marginBottom: 16,
+            marginTop: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+              color: "#111827",
+              marginBottom: 30,
+              fontFamily: fonts.semiBold,
+            }}
+          >
+            Case Progress Timeline
+          </Text>
+
+          <View style={{ position: "relative", paddingVertical: 60 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
+              style={{ flex: 1 }}
+            >
+              <View
+                style={{
+                  position: "relative",
+                  minWidth: Math.max(400, caseData.timeline.length * 120),
+                }}
+              >
+                {/* Timeline Line */}
+                <View
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    backgroundColor: "#e5e7eb",
+                  }}
+                />
+
+                {/* Active portion of timeline */}
+                <View
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: 0,
+                    width: "75%", // Adjust based on progress
+                    height: 2,
+                    backgroundColor: "#ff8800",
+                  }}
+                />
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    height: 160,
+                    minWidth: "100%",
+                  }}
+                >
+                  {caseData.timeline.map((item: any, index: number) => {
+                    const isAbove = index % 2 === 0; // Alternate above/below
+
+                    return (
+                      <View
+                        key={index}
+                        style={{
+                          alignItems: "center",
+                          width: Math.max(
+                            100,
+                            Math.max(400, caseData.timeline.length * 120) /
+                              caseData.timeline.length
+                          ),
+                          position: "relative",
+                          height: "100%",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {/* Date and Event - above the line */}
+                        {isAbove && (
+                          <View
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              alignItems: "center",
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 14,
+                                fontWeight: "500",
+                                color: "#111827",
+                                textAlign: "center",
+                                marginBottom: 4,
+                                fontFamily: fonts.medium,
+                              }}
+                            >
+                              {item.date}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: "#6b7280",
+                                textAlign: "center",
+                                marginBottom: 8,
+                                fontFamily: fonts.regular,
+                              }}
+                            >
+                              {item.event}
+                            </Text>
+                            {/* Connecting line from text to dot */}
+                            <View
+                              style={{
+                                width: 1,
+                                height: 22,
+                                backgroundColor: "#d1d5db",
+                              }}
+                            />
+                          </View>
+                        )}
+
+                        {/* Timeline dot - positioned exactly on the line */}
+                        <View
+                          style={{
+                            width: 16,
+                            height: 16,
+                            borderRadius: 8,
+                            backgroundColor:
+                              item.status === "completed" ||
+                              item.status === "current"
+                                ? "#ff8800"
+                                : "#e5e7eb",
+                            borderWidth: 3,
+                            borderColor: "#ffffff",
+                            shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 1 },
+                            shadowOpacity: 0.1,
+                            shadowRadius: 2,
+                            elevation: 2,
+                            zIndex: 1,
+                          }}
+                        />
+
+                        {/* Inner dot for completed items */}
+                        {item.status === "completed" && (
+                          <View
+                            style={{
+                              position: "absolute",
+                              width: 8,
+                              height: 8,
+                              borderRadius: 4,
+                              backgroundColor: "#ffffff",
+                              zIndex: 2,
+                            }}
+                          />
+                        )}
+
+                        {/* Date and Event - below the line */}
+                        {!isAbove && (
+                          <View
+                            style={{
+                              position: "absolute",
+                              bottom: 0,
+                              alignItems: "center",
+                            }}
+                          >
+                            {/* Connecting line from dot to text */}
+                            <View
+                              style={{
+                                width: 1,
+                                height: 22,
+                                backgroundColor: "#d1d5db",
+                                marginBottom: 8,
+                              }}
+                            />
+                            <Text
+                              style={{
+                                fontSize: 14,
+                                fontWeight: "500",
+                                color: "#111827",
+                                textAlign: "center",
+                                marginBottom: 4,
+                                fontFamily: fonts.medium,
+                              }}
+                            >
+                              {item.date}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: "#6b7280",
+                                textAlign: "center",
+                                fontFamily: fonts.regular,
+                              }}
+                            >
+                              {item.event}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                    );
+                  })}
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+
+        {/* Hearings & Key Dates */}
+        <View
+          style={{
+            backgroundColor: "#ffffff",
+            marginHorizontal: 20,
+            borderRadius: 16,
+            padding: 20,
+            marginBottom: 16,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "600",
+                color: "#111827",
+                fontFamily: fonts.semiBold,
+              }}
+            >
+              Hearings & Key Dates
+            </Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#111827",
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                borderRadius: 8,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#ffffff",
+                  fontSize: 14,
+                  fontWeight: "500",
+                  fontFamily: fonts.medium,
+                }}
+              >
+                Add next Hearing Date
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {caseData.hearings.map((hearing: any, index: number) => (
+            <View
+              key={index}
+              style={{
+                backgroundColor: "#f9fafb",
+                borderRadius: 12,
+                padding: 16,
+                marginBottom: 12,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  color: "#111827",
+                  marginBottom: 8,
+                  fontFamily: fonts.medium,
+                }}
+              >
+                {hearing.status}: {hearing.date} ({hearing.court})
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "#6b7280",
+                  fontFamily: fonts.regular,
+                }}
+              >
+                {hearing.description}
+              </Text>
+            </View>
+          ))}
+        </View>
+
         {/* Case Overview */}
         <View
           style={{
             backgroundColor: "#ffffff",
             marginHorizontal: 20,
-            marginTop: 20,
             borderRadius: 16,
             padding: 20,
             marginBottom: 16,
@@ -685,305 +985,6 @@ const CaseDetailScreen = () => {
                 {caseData.invoicedAmount}
               </Text>
             </View>
-          </View>
-        </View>
-
-        {/* Hearings & Key Dates */}
-        <View
-          style={{
-            backgroundColor: "#ffffff",
-            marginHorizontal: 20,
-            borderRadius: 16,
-            padding: 20,
-            marginBottom: 16,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 16,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "#111827",
-                fontFamily: fonts.semiBold,
-              }}
-            >
-              Hearings & Key Dates
-            </Text>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#111827",
-                paddingHorizontal: 16,
-                paddingVertical: 8,
-                borderRadius: 8,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#ffffff",
-                  fontSize: 14,
-                  fontWeight: "500",
-                  fontFamily: fonts.medium,
-                }}
-              >
-                Add next Hearing Date
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          {caseData.hearings.map((hearing: any, index: number) => (
-            <View
-              key={index}
-              style={{
-                backgroundColor: "#f9fafb",
-                borderRadius: 12,
-                padding: 16,
-                marginBottom: 12,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  color: "#111827",
-                  marginBottom: 8,
-                  fontFamily: fonts.medium,
-                }}
-              >
-                {hearing.status}: {hearing.date} ({hearing.court})
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#6b7280",
-                  fontFamily: fonts.regular,
-                }}
-              >
-                {hearing.description}
-              </Text>
-            </View>
-          ))}
-        </View>
-
-        {/* Case Progress Timeline */}
-        <View
-          style={{
-            backgroundColor: "#ffffff",
-            marginHorizontal: 20,
-            borderRadius: 16,
-            padding: 20,
-            marginBottom: 16,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: "600",
-              color: "#111827",
-              marginBottom: 30,
-              fontFamily: fonts.semiBold,
-            }}
-          >
-            Case Progress Timeline
-          </Text>
-
-          <View style={{ position: "relative", paddingVertical: 60 }}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: 20 }}
-              style={{ flex: 1 }}
-            >
-              <View
-                style={{
-                  position: "relative",
-                  minWidth: Math.max(400, caseData.timeline.length * 120),
-                }}
-              >
-                {/* Timeline Line */}
-                <View
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: 0,
-                    right: 0,
-                    height: 2,
-                    backgroundColor: "#e5e7eb",
-                  }}
-                />
-
-                {/* Active portion of timeline */}
-                <View
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: 0,
-                    width: "75%", // Adjust based on progress
-                    height: 2,
-                    backgroundColor: "#ff8800",
-                  }}
-                />
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    height: 160,
-                    minWidth: "100%",
-                  }}
-                >
-                  {caseData.timeline.map((item: any, index: number) => {
-                    const isAbove = index % 2 === 0; // Alternate above/below
-
-                    return (
-                      <View
-                        key={index}
-                        style={{
-                          alignItems: "center",
-                          width: Math.max(
-                            100,
-                            Math.max(400, caseData.timeline.length * 120) /
-                              caseData.timeline.length
-                          ),
-                          position: "relative",
-                          height: "100%",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {/* Date and Event - above the line */}
-                        {isAbove && (
-                          <View
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              alignItems: "center",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                fontSize: 14,
-                                fontWeight: "500",
-                                color: "#111827",
-                                textAlign: "center",
-                                marginBottom: 4,
-                                fontFamily: fonts.medium,
-                              }}
-                            >
-                              {item.date}
-                            </Text>
-                            <Text
-                              style={{
-                                fontSize: 12,
-                                color: "#6b7280",
-                                textAlign: "center",
-                                marginBottom: 8,
-                                fontFamily: fonts.regular,
-                              }}
-                            >
-                              {item.event}
-                            </Text>
-                            {/* Connecting line from text to dot */}
-                            <View
-                              style={{
-                                width: 1,
-                                height: 22,
-                                backgroundColor: "#d1d5db",
-                              }}
-                            />
-                          </View>
-                        )}
-
-                        {/* Timeline dot - positioned exactly on the line */}
-                        <View
-                          style={{
-                            width: 16,
-                            height: 16,
-                            borderRadius: 8,
-                            backgroundColor:
-                              item.status === "completed" ||
-                              item.status === "current"
-                                ? "#ff8800"
-                                : "#e5e7eb",
-                            borderWidth: 3,
-                            borderColor: "#ffffff",
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 1 },
-                            shadowOpacity: 0.1,
-                            shadowRadius: 2,
-                            elevation: 2,
-                            zIndex: 1,
-                          }}
-                        />
-
-                        {/* Inner dot for completed items */}
-                        {item.status === "completed" && (
-                          <View
-                            style={{
-                              position: "absolute",
-                              width: 8,
-                              height: 8,
-                              borderRadius: 4,
-                              backgroundColor: "#ffffff",
-                              zIndex: 2,
-                            }}
-                          />
-                        )}
-
-                        {/* Date and Event - below the line */}
-                        {!isAbove && (
-                          <View
-                            style={{
-                              position: "absolute",
-                              bottom: 0,
-                              alignItems: "center",
-                            }}
-                          >
-                            {/* Connecting line from dot to text */}
-                            <View
-                              style={{
-                                width: 1,
-                                height: 22,
-                                backgroundColor: "#d1d5db",
-                                marginBottom: 8,
-                              }}
-                            />
-                            <Text
-                              style={{
-                                fontSize: 14,
-                                fontWeight: "500",
-                                color: "#111827",
-                                textAlign: "center",
-                                marginBottom: 4,
-                                fontFamily: fonts.medium,
-                              }}
-                            >
-                              {item.date}
-                            </Text>
-                            <Text
-                              style={{
-                                fontSize: 12,
-                                color: "#6b7280",
-                                textAlign: "center",
-                                fontFamily: fonts.regular,
-                              }}
-                            >
-                              {item.event}
-                            </Text>
-                          </View>
-                        )}
-                      </View>
-                    );
-                  })}
-                </View>
-              </View>
-            </ScrollView>
           </View>
         </View>
 
