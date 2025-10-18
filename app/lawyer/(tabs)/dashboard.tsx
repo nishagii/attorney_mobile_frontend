@@ -56,7 +56,7 @@ export default function Dashboard() {
         showNotificationBadge={true}
         onMenuPress={() => {}}
         onNotificationPress={handleNotificationPress}
-        onPaymentsPress={() => router.push("/lawyer/(drawer)/payments")}
+        onPaymentsPress={() => router.push("/lawyer/(screens)/payments")}
         onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
         onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
         onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
