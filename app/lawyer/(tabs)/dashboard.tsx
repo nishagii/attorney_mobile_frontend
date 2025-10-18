@@ -1058,10 +1058,11 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/duepayments" as any)}
                 >
                   <View
                     style={{
-                      backgroundColor: "#F1F8E9",
+                      backgroundColor: "#FEE2E2",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -1070,7 +1071,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="card-outline" size={24} color="#689F38" />
+                    <Ionicons name="cash-outline" size={24} color="#DC2626" />
                   </View>
                   <Text
                     style={{
@@ -1081,7 +1082,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Analytics
+                    Due Payments
                   </Text>
                 </TouchableOpacity>
               </View>
