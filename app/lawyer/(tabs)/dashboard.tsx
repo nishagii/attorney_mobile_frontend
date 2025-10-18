@@ -924,6 +924,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/documents")}
                 >
                   <View
                     style={{
@@ -937,7 +938,7 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="swap-horizontal-outline"
+                      name="document-text-outline"
                       size={24}
                       color="#FF8800"
                     />
@@ -951,7 +952,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Transfer
+                    Add Documents
                   </Text>
                 </TouchableOpacity>
               </View>
