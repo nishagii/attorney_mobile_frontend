@@ -891,7 +891,7 @@ export default function Dashboard() {
                 >
                   <View
                     style={{
-                      backgroundColor: "#E8F5E8",
+                      backgroundColor: "#E8F5E9",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -900,7 +900,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="person-add-outline" size={24} color="#2E7D32" />
+                    <Ionicons name="person-add-outline" size={24} color="#4CAF50" />
                   </View>
                   <Text
                     style={{
@@ -979,7 +979,7 @@ export default function Dashboard() {
                 >
                   <View
                     style={{
-                      backgroundColor: "#E8F5E8",
+                      backgroundColor: "#F3E5F5",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -991,7 +991,7 @@ export default function Dashboard() {
                     <Ionicons
                       name="calendar-outline"
                       size={24}
-                      color="#2E7D32"
+                      color="#9C27B0"
                     />
                   </View>
                   <Text
@@ -1033,7 +1033,7 @@ export default function Dashboard() {
                     <Ionicons
                       name="person-add-outline"
                       size={24}
-                      color="#5E35B1"
+                      color="#3F51B5"
                     />
                   </View>
                   <Text
@@ -1059,10 +1059,11 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/reminders" as any)}
                 >
                   <View
                     style={{
-                      backgroundColor: "#F1F8E9",
+                      backgroundColor: "#FFF9C4",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -1071,7 +1072,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons name="card-outline" size={24} color="#689F38" />
+                    <Ionicons name="notifications-outline" size={24} color="#F57C00" />
                   </View>
                   <Text
                     style={{
@@ -1082,7 +1083,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Analytics
+                    Reminders
                   </Text>
                 </TouchableOpacity>
               </View>
