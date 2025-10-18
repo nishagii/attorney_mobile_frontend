@@ -1,16 +1,9 @@
 import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import {
-    Animated,
-    Dimensions,
-    Modal,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { Animated, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -31,6 +24,7 @@ interface HeaderProps {
   iconColor?: string;
   borderColor?: string;
   showNotificationBadge?: boolean;
+  router?: ReturnType<typeof useRouter>; // Optional router; falls back to useRouter()
 }
 
 export default function Header({
@@ -45,12 +39,14 @@ export default function Header({
   onMeetingsPress,
   onCasedetails,
   onAccountUsers,
-  backgroundColor = "#ffffff",
-  textColor = "#111827",
-  iconColor = "#111827",
+  backgroundColor = "#111827",
+  textColor = "#ffffff",
+  iconColor = "#ffffff",
   borderColor = "#e5e7eb",
   showNotificationBadge = false,
+  router, // Optional: can be passed from parent, otherwise we'll create one
 }: HeaderProps) {
+  const internalRouter = router ?? useRouter();
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(-width * 0.8)).current;
@@ -101,29 +97,52 @@ export default function Header({
   };
 
   const handlePaymentsPress = () => {
-    setIsSliderOpen(false);
-    if (onPaymentsPress) {
-      onPaymentsPress();
+    handleCloseSlider(); // Close slider after navigating
+    console.log("Payments button pressed");
+    try {
+      if (onPaymentsPress) {
+        console.log("Using custom payments handler");
+        onPaymentsPress();
+      } else {
+        console.log("Using default payments navigation");
+        internalRouter.push("/lawyer/(screens)/payments");
+      }
+    } catch (error) {
+      console.error("Error navigating to payments:", error);
     }
   };
 
   const handleMeetingsPress = () => {
-    setIsSliderOpen(false);
-    if (onMeetingsPress) {
-      onMeetingsPress();
+    handleCloseSlider(); // Close slider after navigating
+    console.log("Meetings button pressed");
+    try {
+      if (onMeetingsPress) {
+        console.log("Using custom meetings handler");
+        onMeetingsPress();
+      } else {
+  console.log("Using default meetings navigation");
+  internalRouter.push("/lawyer/(tabs)/calendar");
+      }
+    } catch (error) {
+      console.error("Error navigating to meetings:", error);
     }
   };
 
   const handleCasedetails = () => {
-    setIsSliderOpen(false);
+    handleCloseSlider(); // Close slider after navigating
     if (onCasedetails) {
       onCasedetails();
+    } else {
+      internalRouter.push("/lawyer/(tabs)/cases");
     }
   };
+
   const handleAccountUsers = () => {
-    setIsSliderOpen(false);
+    handleCloseSlider(); // Close slider after navigating
     if (onAccountUsers) {
       onAccountUsers();
+    } else {
+      internalRouter.push("/lawyer/(tabs)/profile");
     }
   };
 
@@ -217,7 +236,14 @@ export default function Header({
             <View style={styles.gradientOverlay} />
           </Animated.View>
 
+          {/* Corrected modalOverlay structure for clickability */}
           <View style={styles.modalOverlay}>
+            {/* The backdrop must come BEFORE the slider container to ensure the slider is clickable */}
+            <TouchableOpacity
+              style={styles.backdrop}
+              activeOpacity={1}
+              onPress={handleCloseSlider} // Crucial: This makes the backdrop clickable to close the modal
+            />
             <Animated.View
               style={[
                 styles.sliderContainer,
@@ -275,11 +301,6 @@ export default function Header({
                 </TouchableOpacity>
               </View>
             </Animated.View>
-            <TouchableOpacity
-              style={styles.backdrop}
-              onPress={handleCloseSlider}
-              activeOpacity={1}
-            />
           </View>
         </View>
       </Modal>
@@ -303,9 +324,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     zIndex: 2,
+    // Optional: Add a temporary background color for debugging if needed
+    // backgroundColor: 'rgba(255, 0, 0, 0.1)',
   },
   backdrop: {
     flex: 1,
+    // Optional: Add a temporary background color for debugging if needed
+    // backgroundColor: 'rgba(0, 255, 0, 0.1)',
   },
   sliderContainer: {
     width: width * 0.8,
@@ -323,9 +348,10 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    backdropFilter: "blur(40px)",
     borderRightWidth: 1,
     borderRightColor: "rgba(255, 255, 255, 0.3)",
+    // Optional: Add a temporary background color for debugging if needed
+    // backgroundColor: 'rgba(0, 0, 255, 0.1)',
   },
   sliderHeader: {
     flexDirection: "row",
