@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { fonts } from "@/constants/fonts";
+import React, { useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface Client {
   initials: string;
