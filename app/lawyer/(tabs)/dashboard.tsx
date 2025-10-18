@@ -1016,10 +1016,11 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/addjunior" as any)}
                 >
                   <View
                     style={{
-                      backgroundColor: "#F3E5F5",
+                      backgroundColor: "#E8EAF6",
                       width: 48,
                       height: 48,
                       borderRadius: 24,
@@ -1029,9 +1030,9 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="document-text-outline"
+                      name="person-add-outline"
                       size={24}
-                      color="#7B1FA2"
+                      color="#5E35B1"
                     />
                   </View>
                   <Text
@@ -1043,7 +1044,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Bill Payment
+                    Add Junior
                   </Text>
                 </TouchableOpacity>
 
