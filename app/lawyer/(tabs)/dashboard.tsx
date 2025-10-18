@@ -845,7 +845,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
-                  onPress={() => router.push("/lawyer/(screens)/clients" as any)}
+                  onPress={() => router.push("/lawyer/(screens)/clients")}
                 >
                   <View
                     style={{
@@ -887,7 +887,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
-                  onPress={() => router.push("/lawyer/(screens)/addclient" as any)}
+                  onPress={() => router.push("/lawyer/(screens)/addclient")}
                 >
                   <View
                     style={{
@@ -925,6 +925,7 @@ export default function Dashboard() {
                     minHeight: 90,
                     justifyContent: "center",
                   }}
+                  onPress={() => router.push("/lawyer/(screens)/documents")}
                 >
                   <View
                     style={{
@@ -938,7 +939,7 @@ export default function Dashboard() {
                     }}
                   >
                     <Ionicons
-                      name="swap-horizontal-outline"
+                      name="document-text-outline"
                       size={24}
                       color="#FF8800"
                     />
@@ -952,7 +953,7 @@ export default function Dashboard() {
                       fontFamily: fonts.medium,
                     }}
                   >
-                    Transfer
+                    Add Documents
                   </Text>
                 </TouchableOpacity>
               </View>
