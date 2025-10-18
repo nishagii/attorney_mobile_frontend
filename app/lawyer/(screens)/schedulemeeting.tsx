@@ -1,16 +1,15 @@
+import { fonts } from '@/constants/fonts';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  ScrollView, 
-  TouchableOpacity, 
-  TextInput, 
-  StyleSheet 
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { fonts } from '@/constants/fonts';
 import Header from '../../components/Header';
 
 const ScheduleMeeting = () => {
