@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { Ionicons} from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
 import Header from "@/app/components/Header";
+import SimpleHeader from "@/app/components/SimpleHeader";
 
 interface TimelineEvent {
   id: string;
@@ -107,42 +108,28 @@ export default function Timeline() {
   return (
     <View style={{ flex: 1, backgroundColor: "#111827" }}>
       {/* Header */}
-      <Header
-        title=""
-        showMenu={true}
-        showNotification={true}
-        showNotificationBadge={true}
-        onMenuPress={handleMenuPress}
-        onNotificationPress={handleNotificationPress}
-        backgroundColor="#111827"
-        textColor="#ffffff"
-        iconColor="#ffffff"
-        borderColor="#111827"
-      />
+      <SimpleHeader title="My Timeline" />
 
       {/* Main Content */}
       <View
         style={{
           flex: 1,
           backgroundColor: "#f9fafb",
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
           paddingTop: 30,
           paddingHorizontal: 20,
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Time Line Section */}
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "#111827",
-              marginBottom: 16,
-              fontFamily: fonts.semiBold,
-            }}
-          >
-            Time Line
+         <Text
+              style={{
+                fontSize: 16,
+                fontFamily: fonts.regular,
+                color: "#6b7280",
+                marginBottom:10
+              }}
+            >
+            Select the Year and Month to view the full timeline
           </Text>
 
           {/* Year Selector */}

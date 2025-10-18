@@ -1,7 +1,7 @@
 import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   Animated,
@@ -14,6 +14,8 @@ import Header from "../../components/Header";
 import NotificationPanel from "../../lawyer/(screens)/notifications";
 
 export default function Dashboard() {
+  const router = useRouter();
+
   const scrollY = useRef(new Animated.Value(0)).current;
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -54,12 +56,16 @@ export default function Dashboard() {
         iconColor="#fff"
         borderColor="#111827"
         showNotificationBadge={true}
-        onMenuPress={() => {}}
+        onMenuPress={() => {
+          // Handle menu press
+          console.log("Menu pressed");
+        }}
+  router={router}
         onNotificationPress={handleNotificationPress}
         onPaymentsPress={() => router.push("/lawyer/(screens)/payments")}
         onMeetingsPress={() => router.push("/lawyer/(tabs)/calendar")}
         onCasedetails={() => router.push("/lawyer/(tabs)/cases")}
-        onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
+  onAccountUsers={() => router.push("/lawyer/(tabs)/profile")}
       />
       <NotificationPanel
         visible={showNotifications}
@@ -282,6 +288,7 @@ export default function Dashboard() {
                   shadowRadius: 8,
                   elevation: 8,
                 }}
+                onPress={() => router.push("/lawyer/(tabs)/dashboard")}
               >
                 <View
                   style={{
@@ -598,7 +605,9 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
-                    onPress={() => router.push("/lawyer/(screens)/incomes" as any)}
+                    onPress={() =>
+                      router.push("/lawyer/(screens)/incomes" as any)
+                    }
                   >
                     <Animated.View
                       style={{
@@ -710,6 +719,7 @@ export default function Dashboard() {
                       elevation: 20,
                       overflow: "hidden",
                     }}
+                    onPress={() => router.push("/lawyer/(tabs)/dashboard")}
                   >
                     <Animated.View
                       style={{
@@ -819,13 +829,24 @@ export default function Dashboard() {
             {/* Spacer for floating cards */}
             <View style={{ height: 250 }} />
 
-            {/* Action Cards Grid - 2x3 Layout */}
+            {/* Practice Statistics */}
             <View
               style={{
                 paddingHorizontal: 20,
                 paddingBottom: 32,
               }}
             >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  marginBottom: 16,
+                  color: "#323D68",
+                  fontFamily: fonts.semiBold,
+                }}
+              >
+                Practice Statistics
+              </Text>
               {/* First Row */}
               <View
                 style={{
@@ -857,11 +878,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="people-outline"
-                      size={24}
-                      color="#1976D2"
-                    />
+                    <Ionicons name="people-outline" size={24} color="#1976D2" />
                   </View>
                   <Text
                     style={{
@@ -937,11 +954,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="document-text-outline"
-                      size={24}
-                      color="#FF8800"
-                    />
+                    <Ionicons name="document-text-outline" size={24} color="#FF8800" />
                   </View>
                   <Text
                     style={{
@@ -1029,11 +1042,7 @@ export default function Dashboard() {
                       marginBottom: 8,
                     }}
                   >
-                    <Ionicons
-                      name="person-add-outline"
-                      size={24}
-                      color="#5E35B1"
-                    />
+                    <Ionicons name="person-add-outline" size={24} color="#5E35B1" />
                   </View>
                   <Text
                     style={{
@@ -1086,126 +1095,6 @@ export default function Dashboard() {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
-
-            {/* Account Summary Cards */}
-            <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  padding: 20,
-                  marginBottom: 16,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{
-                      backgroundColor: "#FF8800",
-                      width: 48,
-                      height: 48,
-                      borderRadius: 12,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 16,
-                    }}
-                  >
-                    <Ionicons name="person-outline" size={24} color="white" />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "600",
-                        color: "#323D68",
-                        fontFamily: fonts.semiBold,
-                      }}
-                    >
-                      Accounts
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "#5E788F",
-                        fontFamily: fonts.regular,
-                      }}
-                    >
-                      Total Account Balance
-                    </Text>
-                  </View>
-                </View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#323D68",
-                    fontFamily: fonts.semiBold,
-                  }}
-                >
-                  $8,750.24
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  padding: 20,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{
-                      backgroundColor: "#D32F2F",
-                      width: 48,
-                      height: 48,
-                      borderRadius: 12,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 16,
-                    }}
-                  >
-                    <Ionicons name="card-outline" size={24} color="white" />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: "600",
-                        color: "#323D68",
-                        fontFamily: fonts.semiBold,
-                      }}
-                    >
-                      Cases
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "#5E788F",
-                        fontFamily: fonts.regular,
-                      }}
-                    >
-                      Total Case Balance
-                    </Text>
-                  </View>
-                </View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#323D68",
-                    fontFamily: fonts.semiBold,
-                  }}
-                >
-                  $2,500.00
-                </Text>
-              </TouchableOpacity>
             </View>
 
             {/* Hearings Section */}

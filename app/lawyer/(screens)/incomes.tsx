@@ -4,15 +4,15 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
 import { LineChart } from "react-native-chart-kit";
 import { Picker } from "@react-native-picker/picker";
 import { fonts } from "@/constants/fonts";
-import Header from "@/app/components/Header";
+import SimpleHeader from "@/app/components/SimpleHeader";
 
 const { width } = Dimensions.get("window");
 
@@ -58,130 +58,36 @@ export default function Incomes() {
     { id: "12", date: "2025-05-06", name: "Mr Lathmuni" },
   ];
 
-  const totalIncome = paidCustomers.reduce((sum, customer) => sum + (customer.amount || 0), 0);
+  const totalIncome = paidCustomers.reduce(
+    (sum, customer) => sum + (customer.amount || 0),
+    0
+  );
 
   const handleBackPress = () => {
     router.back();
   };
 
-  const handleMenuPress = () => {
-    console.log("Menu pressed");
-  };
+  // Responsive design calculations (like day summary)
+  const screenWidth = Dimensions.get("window").width;
+  const isSmallScreen = screenWidth < 375;
+  const isMediumScreen = screenWidth >= 375 && screenWidth < 414;
 
-  const handleNotificationPress = () => {
-    console.log("Notification pressed");
-  };
-
-  const handlePaymentsPress = () => {
-    router.push("/lawyer/(tabs)/payments" as any);
-  };
-
-  const handleMeetingsPress = () => {
-    router.push("/lawyer/(tabs)/calendar" as any);
-  };
+  const cardPadding = isSmallScreen ? 16 : isMediumScreen ? 20 : 24;
+  const horizontalPadding = isSmallScreen ? 20 : isMediumScreen ? 24 : 32;
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#111827" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }}>
       {/* Header */}
-      <Header
-        title=""
-        showMenu={true}
-        showNotification={true}
-        showNotificationBadge={true}
-        onMenuPress={handleMenuPress}
-        onNotificationPress={handleNotificationPress}
-        onPaymentsPress={handlePaymentsPress}
-        onMeetingsPress={handleMeetingsPress}
-        backgroundColor="#111827"
-        textColor="#ffffff"
-        iconColor="#ffffff"
-        borderColor="#111827"
-      />
-      
-      {/* Back Button */}
-      <TouchableOpacity
-        style={{
-          position: "absolute",
-          left: 20,
-          top: 60,
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
-          borderRadius: 20,
-          padding: 8,
-          zIndex: 10,
-        }}
-        onPress={handleBackPress}
-      >
-        <Ionicons name="arrow-back" size={20} color="#ffffff" />
-      </TouchableOpacity>
+      <SimpleHeader title="Incomes" />
 
-      {/* Main Content with Layered Background */}
-      <View style={{ flex: 1, backgroundColor: "#111827" }}>
-        {/* Welcome Message Section */}
+      {/* Main Content */}
+      <ScrollView style={{ flex: 1 }}>
+        {/* Hero Section */}
+        {/* Incomes Section */}
         <View
-          style={{
-            paddingHorizontal: 20,
-            paddingTop: 20,
-            paddingBottom: 24,
-          }}
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
         >
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              color: "#fff",
-              marginBottom: 4,
-              fontFamily: fonts.semiBold,
-            }}
-          >
-            Hello Thusitha, Welcome!
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: "#FF8800",
-              marginBottom: 12,
-              fontWeight: "500",
-              fontFamily: fonts.medium,
-            }}
-          >
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </Text>
-        </View>
-
-        {/* White Rounded Overlay Container with Gradient */}
-        <LinearGradient
-          colors={["#fff3e0", "#f9fafb", "#f9fafb"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1.1 }}
-          style={{
-            flex: 1,
-            marginTop: 40,
-            borderTopLeftRadius: 100,
-            paddingTop: 40,
-          }}
-        >
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            {/* Spacer for better layout */}
-            <View style={{ height: 20 }} />
-
-            {/* Incomes Section */}
-            <View style={{ paddingHorizontal: 20 }}>
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              color: "#111827",
-              marginBottom: 20,
-              fontFamily: fonts.semiBold,
-            }}
-          >
-            Incomes
-          </Text>
+         
 
           {/* Year and Month Selection */}
           <View
@@ -199,11 +105,18 @@ export default function Incomes() {
                 borderWidth: 1,
                 borderColor: "#E5E7EB",
                 flex: 1,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 2,
               }}
             >
               <Picker
                 selectedValue={selectedYear}
-                onValueChange={(itemValue: string) => setSelectedYear(itemValue)}
+                onValueChange={(itemValue: string) =>
+                  setSelectedYear(itemValue)
+                }
                 style={{ height: 50 }}
               >
                 <Picker.Item label="2023" value="2023" />
@@ -220,16 +133,33 @@ export default function Incomes() {
                 borderWidth: 1,
                 borderColor: "#E5E7EB",
                 flex: 1,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 2,
               }}
             >
               <Picker
                 selectedValue={selectedMonth}
-                onValueChange={(itemValue: string) => setSelectedMonth(itemValue)}
+                onValueChange={(itemValue: string) =>
+                  setSelectedMonth(itemValue)
+                }
                 style={{ height: 50 }}
               >
                 {[
-                  "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
                 ].map((month) => (
                   <Picker.Item key={month} label={month} value={month} />
                 ))}
@@ -238,10 +168,15 @@ export default function Incomes() {
 
             <TouchableOpacity
               style={{
-                backgroundColor: "#111827",
+                backgroundColor: "#000000",
                 paddingHorizontal: 24,
                 paddingVertical: 12,
                 borderRadius: 8,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 3,
               }}
             >
               <Text
@@ -261,31 +196,32 @@ export default function Incomes() {
           <View
             style={{
               backgroundColor: "#ffffff",
-              borderRadius: 12,
-              padding: 20,
-              marginBottom: 24,
+              borderRadius: isSmallScreen ? 12 : 16,
+              padding: cardPadding,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: "#e5e7eb",
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
-              shadowRadius: 4,
+              shadowRadius: 8,
               elevation: 3,
             }}
           >
             <Text
               style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "#111827",
+                fontSize: isSmallScreen ? 16 : 18,
+                fontFamily: fonts.bold,
+                color: "#000000",
                 marginBottom: 16,
-                fontFamily: fonts.semiBold,
               }}
             >
-              Daily Income for {selectedMonth} {selectedYear.slice(2)}
+              Daily Income for {selectedMonth} {selectedYear}
             </Text>
 
             <LineChart
               data={chartData}
-              width={width - 80}
+              width={width - horizontalPadding * 2 - cardPadding * 2}
               height={220}
               chartConfig={{
                 backgroundColor: "#ffffff",
@@ -309,34 +245,38 @@ export default function Incomes() {
               }}
             />
           </View>
+        </View>
 
-          {/* Paid Customers Section */}
+        {/* Paid Customers Section */}
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
+        >
+          <Text
+            style={{
+              fontSize: isSmallScreen ? 16 : 18,
+              fontFamily: fonts.bold,
+              color: "#000000",
+              marginBottom: 16,
+            }}
+          >
+            Paid Customers
+          </Text>
+
           <View
             style={{
               backgroundColor: "#ffffff",
-              borderRadius: 12,
-              padding: 20,
-              marginBottom: 20,
+              borderRadius: isSmallScreen ? 12 : 16,
+              padding: cardPadding,
+              borderWidth: 1,
+              borderColor: "#e5e7eb",
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
-              shadowRadius: 4,
+              shadowRadius: 8,
               elevation: 3,
             }}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "#111827",
-                marginBottom: 16,
-                fontFamily: fonts.semiBold,
-              }}
-            >
-              Paid Customers
-            </Text>
-
-            {paidCustomers.map((customer) => (
+            {paidCustomers.map((customer, index) => (
               <View
                 key={customer.id}
                 style={{
@@ -344,13 +284,13 @@ export default function Incomes() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   paddingVertical: 8,
-                  borderBottomWidth: 1,
+                  borderBottomWidth: index < paidCustomers.length - 1 ? 1 : 0,
                   borderBottomColor: "#F3F4F6",
                 }}
               >
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: isSmallScreen ? 13 : 14,
                     color: "#374151",
                     fontFamily: fonts.regular,
                   }}
@@ -359,10 +299,9 @@ export default function Incomes() {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 14,
-                    fontWeight: "600",
-                    color: "#059669",
+                    fontSize: isSmallScreen ? 13 : 14,
                     fontFamily: fonts.semiBold,
+                    color: "#059669",
                   }}
                 >
                   ${customer.amount}
@@ -370,50 +309,60 @@ export default function Incomes() {
               </View>
             ))}
           </View>
+        </View>
 
-          {/* Unpaid Customers Section */}
+        {/* Unpaid Customers Section */}
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 32 }}
+        >
+          <Text
+            style={{
+              fontSize: isSmallScreen ? 16 : 18,
+              fontFamily: fonts.bold,
+              color: "#000000",
+              marginBottom: 16,
+            }}
+          >
+            Unpaid Customers
+          </Text>
+
           <View
             style={{
               backgroundColor: "#ffffff",
-              borderRadius: 12,
-              padding: 20,
-              marginBottom: 20,
+              borderRadius: isSmallScreen ? 12 : 16,
+              padding: cardPadding,
+              borderWidth: 1,
+              borderColor: "#e5e7eb",
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
-              shadowRadius: 4,
+              shadowRadius: 8,
               elevation: 3,
             }}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "#111827",
-                marginBottom: 16,
-                fontFamily: fonts.semiBold,
-              }}
-            >
-              Unpaid Customers
-            </Text>
-
             {unpaidCustomers.map((customer, index) => (
               <View
                 key={customer.id}
                 style={{
                   flexDirection: "row",
-                  justifyContent: "space-between",
                   alignItems: "center",
                   paddingVertical: 8,
                   borderBottomWidth: index < unpaidCustomers.length - 1 ? 1 : 0,
                   borderBottomColor: "#F3F4F6",
                 }}
               >
+                <Ionicons
+                  name="person-circle"
+                  size={24}
+                  color="#6B7280"
+                  style={{ marginRight: 12 }}
+                />
                 <Text
                   style={{
-                    fontSize: 14,
-                    color: index === 2 ? "#EF4444" : "#374151", // Highlight one in red like the image
+                    fontSize: isSmallScreen ? 13 : 14,
+                    color: index === 2 ? "#EF4444" : "#374151",
                     fontFamily: fonts.regular,
+                    flex: 1,
                   }}
                 >
                   {customer.date} - {customer.name}
@@ -421,18 +370,34 @@ export default function Incomes() {
               </View>
             ))}
           </View>
+        </View>
 
-          {/* Total Income Section */}
+        {/* Total Income Section */}
+        <View
+          style={{ paddingHorizontal: horizontalPadding, marginBottom: 40 }}
+        >
+          <Text
+            style={{
+              fontSize: isSmallScreen ? 16 : 18,
+              fontFamily: fonts.bold,
+              color: "#000000",
+              marginBottom: 16,
+            }}
+          >
+            Total Income Summary
+          </Text>
+
           <View
             style={{
               backgroundColor: "#ffffff",
-              borderRadius: 12,
-              padding: 20,
-              marginBottom: 40,
+              borderRadius: isSmallScreen ? 12 : 16,
+              padding: cardPadding,
+              borderWidth: 1,
+              borderColor: "#e5e7eb",
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.1,
-              shadowRadius: 4,
+              shadowRadius: 8,
               elevation: 3,
             }}
           >
@@ -445,20 +410,18 @@ export default function Incomes() {
             >
               <Text
                 style={{
-                  fontSize: 20,
-                  fontWeight: "600",
-                  color: "#111827",
+                  fontSize: isSmallScreen ? 16 : 18,
                   fontFamily: fonts.semiBold,
+                  color: "#000000",
                 }}
               >
                 Total Income for {selectedMonth} {selectedYear.slice(2)}
               </Text>
               <Text
                 style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  color: "#111827",
+                  fontSize: isSmallScreen ? 20 : 24,
                   fontFamily: fonts.bold,
+                  color: "#10B981",
                 }}
               >
                 ${totalIncome.toLocaleString()}
@@ -466,9 +429,7 @@ export default function Incomes() {
             </View>
           </View>
         </View>
-          </ScrollView>
-        </LinearGradient>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
