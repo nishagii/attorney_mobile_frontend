@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { fonts } from '@/constants/fonts';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { fonts } from '@/constants/fonts';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LawyerAddDocuments from './adddocuments';
 
 interface Document {

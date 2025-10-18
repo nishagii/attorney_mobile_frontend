@@ -1,18 +1,18 @@
+import { fonts } from '@/constants/fonts';
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  Modal,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
+    Alert,
+    Modal,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import Button1 from '../../components/UI/Button1';
 import Button2 from '../../components/UI/Button2';
 import Input1 from '../../components/UI/Input1';
-import { fonts } from '@/constants/fonts';
 
 interface LawyerAddDocumentsProps {
   isOpen: boolean;
